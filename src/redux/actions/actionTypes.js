@@ -3,5 +3,6 @@ export default {
     SET_CATEGORY: 'filter/SET_CATEGORY',
     SET_PIZZAS: 'pizza/SET_PIZZAS',
     SET_LOADING: 'pizza/SET_LOADING',
-    ADD_PIZZA: 'cart/ADD_PIZZA'
+    ADD_PIZZA: 'cart/ADD_PIZZA',
+    CLEAR_CART: 'cart/CLEAR_CART'
 };

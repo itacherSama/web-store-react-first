@@ -1,12 +1,23 @@
 import React from 'react';
-import CartItem from "../components/CartItem";
-import {Button} from "../components";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
+
+import {Button} from "../components";
+import CartItem from "../components/CartItem";
+import { clearCart } from "../redux/actions/cart";
+import {createArrayWithObjsByProperty} from './../utils/utils';
 
 const Cart = (props) => {
 
-    const cart = useSelector(({cartReducer}) => cartReducer);
+    const dispatch = useDispatch();
+    const {items, totalItems, totalPrice} = useSelector(({cartReducer}) => cartReducer);
+
+
+    const handleClearCart = () => {
+        dispatch(clearCart());
+    }
+ 
+    let arrayItems = createArrayWithObjsByProperty(items, 'item');
 
     return (
         <div className="content">
@@ -28,7 +39,7 @@ const Cart = (props) => {
                             </svg>
                             Корзина
                         </h2>
-                        <div className="cart__clear">
+                        <div className="cart__clear" onClick={handleClearCart}>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.5 5H4.16667H17.5" stroke="#B6B6B6" strokeWidth="1.2" strokeLinecap="round"
@@ -46,14 +57,16 @@ const Cart = (props) => {
                         </div>
                     </div>
                     <div className="content__items">
-                        <CartItem />
-                        <CartItem />
-                        <CartItem />
+                        {
+                            arrayItems && arrayItems.map((pizza, idx) => (
+                                <CartItem item={pizza} key={`${idx}_${pizza}`} />
+                            ))
+                        }
                     </div>
                     <div className="cart__bottom">
                         <div className="cart__bottom-details">
-                            <span> Всего пицц: <b>3 шт.</b> </span>
-                            <span> Сумма заказа: <b>900 ₽</b> </span>
+                            <span> Всего пицц: <b>{totalItems}</b> </span>
+                            <span> Сумма заказа: <b>{totalPrice} ₽</b> </span>
                         </div>
                         <div className="cart__bottom-buttons">
                             <Link to="/" className="button button--outline button--add go-back-btn">
