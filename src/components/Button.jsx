@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 function Button({className, outline, children, onClick}) {
     return (
         <button className={cn('button', className, {
-            'button-outline': outline,
+            'button--outline': outline,
         })}
         onClick={onClick}
         >

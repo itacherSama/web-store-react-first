@@ -1,5 +1,5 @@
 import actionTypes from "../actions/actionTypes";
-import {addItem, findItemIncOrDeс, findTotalItems} from "../../utils/utils";
+import {performOpItem, findTotalByProps} from "../../utils/utils";
 
 const pizzaaaa = {
     '0': [
@@ -100,31 +100,27 @@ const pizzaaaa = {
 
 const initialState = {
     items: {...pizzaaaa},
-    totalPrice: 0,
-    totalItems: 0
+    totalPrice: 100,
+    totalItems: 1
 };
 
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.INCREMENT_PIZZA:
+        case actionTypes.DECREMENT_PIZZA:
         case actionTypes.ADD_PIZZA: {
-            const pizza = action.payload;
+            console.log(action.payload);
+            const {item, operation} = action.payload;
 
-            let newState = Object.assign(state);
-            let needArrayPizzas = newState.items[pizza.id] || [];
-            const isFindElement = findItemIncOrDeс(needArrayPizzas, pizza);
-
-            if (!isFindElement) {
-                needArrayPizzas = addItem(needArrayPizzas, pizza);
+            const newItems = performOpItem(state.items[item.id], item, operation);
+            const newState = {
+                ...state,
+                items: {
+                    ...state.items,
+                    [item.id]: newItems
+                }
             }
-
-            newState.items = {
-                ...newState.items,
-                [pizza.id]: [...needArrayPizzas]
-            }
-
-            const totalPrice = findTotalItems(newState.items, 'totalPrice');
-            const totalItems = findTotalItems(newState.items, 'totalItems');
-
+            const [totalPrice, totalItems] = findTotalByProps(newState.items, ['totalPrice', 'totalItems']);
             return {
                 ...newState,
                 totalItems,
@@ -133,8 +129,9 @@ const cartReducer = (state = initialState, action) => {
         }
         case actionTypes.CLEAR_CART:
             return {
-                ...initialState,
-                items: {}
+                items: {},
+                totalPrice: 0,
+                totalItems: 0
             }
         default:
             return state;

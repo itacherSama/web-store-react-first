@@ -3,14 +3,14 @@ import cn from 'classnames';
 import PropTypes from "prop-types";
 import Button from "../Button";
 
-const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddPizza}) => {
+const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem}) => {
     const availableTypes = ['тонкое', 'традиционное'];
     const availableSizes = [26, 30, 40];
     const [selectedType, setSelectedType] = React.useState(types[0]);
     const [selectedSize, setSelectedSize] = React.useState(sizes[0]);
     const pricePizza = price[availableSizes.indexOf(selectedSize)];
 
-    const handleAddPizza = () => {
+    const handleAddItem = () => {
         const objPizza = {
             id,
             name,
@@ -19,7 +19,7 @@ const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddPizza}) => {
             size: selectedSize,
             type: availableTypes[selectedType]
         };
-        onAddPizza(objPizza);
+        onAddItem(objPizza);
     }
 
 
@@ -64,7 +64,7 @@ const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddPizza}) => {
             </div>
             <div className='pizza-block__bottom'>
                 <div className='pizza-block__price'>от {pricePizza} ₽</div>
-                <Button className='button button--add' outline onClick={handleAddPizza}>
+                <Button className='button button--add' outline onClick={handleAddItem}>
                     <svg
                         width='12'
                         height='12'

@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Categories, SortPopup, PizzaBlock, PizzaLoader} from '../components';
 import {setCategory, setSortBy} from "../redux/actions/filter";
 import {fetchPizzas} from "../redux/thunks/pizza";
-import {addPizza} from "../redux/actions/cart";
+import {addItem} from "../redux/actions/cart";
 
 const categoriesNames = [
     'мясные',
@@ -55,8 +55,8 @@ const Home = () => {
         }
     }, [sortBy]);
 
-    const onAddPizza = (obj) => {
-        dispatch(addPizza(obj));
+    const onAddItem = (obj) => {
+        dispatch(addItem(obj));
     }
 
     return (
@@ -77,7 +77,7 @@ const Home = () => {
             <div className='content__items'>
                 {
                     !isLoading ? pizzas.map(pizza => (
-                        <PizzaBlock key={pizza.id} {...pizza} onAddPizza={onAddPizza}/>
+                        <PizzaBlock key={pizza.id} {...pizza} onAddItem={onAddItem}/>
                     )) : Array(10).fill(0).map((_, idx) => (
                         <PizzaLoader key={idx} />
                     ))

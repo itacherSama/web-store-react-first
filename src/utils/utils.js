@@ -1,22 +1,46 @@
-export const findItemIncOrDeс = (array, item, operation = '+') => {
-    return array.some((pizzaBlock) => {
-        const isHasPizzaInState = Object.keys(item).every(key => item[key] === pizzaBlock.item[key]);
+export const performOpItem = (items = [], item, operation) => {
+
+    const isFindedElement = findItemInArray(items, item);
+
+    if (isFindedElement) {
+        return incOrDeсItem(items, item, operation);
+    } else {
+        return addItem(items, item);
+    }
+}
+
+export const findItemInArray = (array, item) => {
+    const res = array.findIndex((arrayFromBlock) => {
+        return Object.keys(item).every(key => item[key] === arrayFromBlock.item[key]);
+    });
+        return res !== -1;
+}
+
+export const incOrDeсItem = (array, item, operation = '+') => {
+    const newArr = copyFullArrayWithObj(array);
+    newArr.some((arrayFromBlock) => {
+        const isHasPizzaInState = Object.keys(item).every(key => item[key] === arrayFromBlock.item[key]);
         if (isHasPizzaInState) {
             if (operation === '+') {
-                pizzaBlock.totalItems += 1;
-                pizzaBlock.totalPrice += item.price;
-            } else if (operation === '+' && pizzaBlock.totalItems >= 1) {
-                pizzaBlock.totalItems -= 1;
-                pizzaBlock.totalPrice -= item.price;
+                arrayFromBlock.totalItems += 1;
+                arrayFromBlock.totalPrice += item.price;
+            } else if (operation === '-' && arrayFromBlock.totalItems > 1) {
+                arrayFromBlock.totalItems -= 1;
+                arrayFromBlock.totalPrice -= item.price;
             }
 
         }
         return isHasPizzaInState;
     });
+    return newArr;
+}
+
+export const copyFullArrayWithObj = (arr) => {
+    return arr.map(el => ({...el}));
 }
 
 export const addItem = (arr, item) => {
-    return arr = [
+    return [
         ...arr,
         {
             item: item,
@@ -26,12 +50,20 @@ export const addItem = (arr, item) => {
     ]
 }
 
-export const findTotalItems = (items, findProp) => {
-    return Object.values(items).reduce((sum, pizzasById) => {
-        const sumPizzasById = Object.values(pizzasById).reduce((sum,pizzasByTypes) => {
-            return sum + pizzasByTypes[findProp];
+export const findTotalByProps = (items, findProps) => {
+    const isArray = Array.isArray(findProps);
+
+    if (isArray) {
+        return findProps.map((el) => {
+            return findTotalByProps(items, el);
+        });
+    }
+
+    return Object.values(items).reduce((sumById, pizzasById) => {
+        const sumPizzasById = Object.values(pizzasById).reduce((sum, pizzasByTypes) => {
+            return sum + pizzasByTypes[findProps];
         }, 0);
-        return sum + sumPizzasById;
+        return sumById + sumPizzasById;
     }, 0);
 }
 

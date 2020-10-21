@@ -4,5 +4,7 @@ export default {
     SET_PIZZAS: 'pizza/SET_PIZZAS',
     SET_LOADING: 'pizza/SET_LOADING',
     ADD_PIZZA: 'cart/ADD_PIZZA',
+    INCREMENT_PIZZA: 'cart/INCREMENT_PIZZA',
+    DECREMENT_PIZZA: 'cart/DECREMENT_PIZZA',
     CLEAR_CART: 'cart/CLEAR_CART'
 };

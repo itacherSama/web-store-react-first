@@ -4,19 +4,27 @@ import {Link} from "react-router-dom";
 
 import {Button} from "../components";
 import CartItem from "../components/CartItem";
-import { clearCart } from "../redux/actions/cart";
+import {clearCart, incrementItem, decrementItem} from "../redux/actions/cart";
 import {createArrayWithObjsByProperty} from './../utils/utils';
 
-const Cart = (props) => {
+const Cart = React.memo((props) => {
 
     const dispatch = useDispatch();
     const {items, totalItems, totalPrice} = useSelector(({cartReducer}) => cartReducer);
 
 
+    const onIncrementItem = (item) => {
+        dispatch(incrementItem(item));
+    }
+
+    const onDecrementItem = (item) => {
+        dispatch(decrementItem(item));
+    }
+
     const handleClearCart = () => {
         dispatch(clearCart());
     }
- 
+
     let arrayItems = createArrayWithObjsByProperty(items, 'item');
 
     return (
@@ -58,8 +66,13 @@ const Cart = (props) => {
                     </div>
                     <div className="content__items">
                         {
-                            arrayItems && arrayItems.map((pizza, idx) => (
-                                <CartItem item={pizza} key={`${idx}_${pizza}`} />
+                            arrayItems && arrayItems.map((itemBlock, idx) => (
+                                <CartItem
+                                    itemBlock={itemBlock}
+                                    key={`${idx}_${itemBlock}`}
+                                    onIncrementItem={onIncrementItem}
+                                    onDecrementItem={onDecrementItem}
+                                />
                             ))
                         }
                     </div>
@@ -69,15 +82,17 @@ const Cart = (props) => {
                             <span> Сумма заказа: <b>{totalPrice} ₽</b> </span>
                         </div>
                         <div className="cart__bottom-buttons">
-                            <Link to="/" className="button button--outline button--add go-back-btn">
-                                <svg width="8" height="14" viewBox="0 0 8 14" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7 13L1 6.93015L6.86175 1" stroke="#D3D3D3" strokeWidth="1.5"
-                                          strokeLinecap="round" strokeLinejoin="round"/>
-                                </svg>
+                            <Button outline className="button--add go-back-btn">
+                                <Link to="/">
+                                    <svg width="8" height="14" viewBox="0 0 8 14" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 13L1 6.93015L6.86175 1" stroke="#D3D3D3" strokeWidth="1.5"
+                                              strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
 
-                                <span>Вернуться назад</span>
-                            </Link>
+                                    <span>Вернуться назад</span>
+                                </Link>
+                            </Button>
                             <Button className="pay-btn">
                                 <span>Оплатить сейчас</span>
                             </Button>
@@ -88,6 +103,6 @@ const Cart = (props) => {
         </div>
 
     )
-}
+});
 
 export default Cart;
