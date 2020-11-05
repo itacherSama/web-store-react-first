@@ -3,7 +3,7 @@ import cn from 'classnames';
 import PropTypes from "prop-types";
 import Button from "../Button";
 
-const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem}) => {
+const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem, countPizzas}) => {
     const availableTypes = ['тонкое', 'традиционное'];
     const availableSizes = [26, 30, 40];
     const [selectedType, setSelectedType] = React.useState(types[0]);
@@ -78,7 +78,7 @@ const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem}) => {
                         />
                     </svg>
                     <span>добавить</span>
-                    <i>2</i>
+                    <i>{countPizzas}</i>
                 </Button>
             </div>
         </div>

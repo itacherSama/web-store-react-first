@@ -1,6 +1,5 @@
 export const performOpItem = (items = [], item, operation) => {
-
-    const isFindedElement = findItemInArray(items, item);
+    const isFindedElement = hasItemInArray(items, item);
 
     if (isFindedElement) {
         return incOrDeсItem(items, item, operation);
@@ -9,12 +8,17 @@ export const performOpItem = (items = [], item, operation) => {
     }
 }
 
-export const findItemInArray = (array, item) => {
-    const res = array.findIndex((arrayFromBlock) => {
-        return Object.keys(item).every(key => item[key] === arrayFromBlock.item[key]);
-    });
+export const hasItemInArray = (array, item) => {
+    const res = findIndexInArray(array, item);
         return res !== -1;
 }
+
+const findIndexInArray = (array, item) => {
+    return array.findIndex((arrayFromBlock) => {
+        return Object.keys(item).every(key => item[key] === arrayFromBlock.item[key]);
+    });
+}
+
 
 export const incOrDeсItem = (array, item, operation = '+') => {
     const newArr = copyFullArrayWithObj(array);
@@ -48,6 +52,13 @@ export const addItem = (arr, item) => {
             totalPrice: item.price
         }
     ]
+}
+// не работает
+export const deleteItem = (arr, item) => {
+    const idx = findIndexInArray(arr, item);
+    return arr.filter((el, index) => {
+        return idx !== index;
+    });
 }
 
 export const findTotalByProps = (items, findProps) => {

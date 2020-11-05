@@ -34,9 +34,10 @@ const Home = () => {
     const dispatch = useDispatch();
 
     const pizzas = useSelector(({pizzaReducer}) => pizzaReducer.items);
+    const countPizzas = useSelector(({cartReducer}) => [].map.call(cartReducer.items, el => el.length)); /* продолжить счетчик */
     const {sortBy, sortCategory} = useSelector(({filterReducer}) => filterReducer);
     const isLoading = useSelector(({pizzaReducer}) => pizzaReducer.isLoading);
-
+    // console.log(countPizzas)
     React.useEffect(() => {
         dispatch(fetchPizzas(sortBy, sortCategory));
     }, [sortBy, sortCategory]);
@@ -76,8 +77,13 @@ const Home = () => {
             <h2 className='content__title'>все пиццы</h2>
             <div className='content__items'>
                 {
-                    !isLoading ? pizzas.map(pizza => (
-                        <PizzaBlock key={pizza.id} {...pizza} onAddItem={onAddItem}/>
+                    !isLoading ? pizzas.map((pizza, idx) => (
+                        <PizzaBlock
+                            key={pizza.id}
+                            {...pizza}
+                            countItem={countPizzas[idx]}
+                            onAddItem={onAddItem
+                            }/>
                     )) : Array(10).fill(0).map((_, idx) => (
                         <PizzaLoader key={idx} />
                     ))

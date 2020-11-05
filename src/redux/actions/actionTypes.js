@@ -6,5 +6,6 @@ export default {
     ADD_PIZZA: 'cart/ADD_PIZZA',
     INCREMENT_PIZZA: 'cart/INCREMENT_PIZZA',
     DECREMENT_PIZZA: 'cart/DECREMENT_PIZZA',
+    DELETE_PIZZA: 'cart/DELETE_PIZZA',
     CLEAR_CART: 'cart/CLEAR_CART'
 };

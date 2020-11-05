@@ -2,7 +2,7 @@ import React from "react";
 import {Button} from "./index";
 
 
-const CartItem = React.memo(({itemBlock, onDecrementItem, onIncrementItem}) => {
+const CartItem = React.memo(({itemBlock, onDecrementItem, onIncrementItem, onDeleteItem}) => {
         const {item, totalItems, totalPrice} = itemBlock;
 
         const handleIncrementItem = () => {
@@ -11,6 +11,10 @@ const CartItem = React.memo(({itemBlock, onDecrementItem, onIncrementItem}) => {
 
         const handleDecrementItem = () => {
             onDecrementItem(item);
+        }
+
+        const handleDeleteItem = () => {
+            onDeleteItem(item);
         }
 
         return (
@@ -57,7 +61,7 @@ const CartItem = React.memo(({itemBlock, onDecrementItem, onIncrementItem}) => {
                     <b>{totalPrice} ₽</b>
                 </div>
                 <div className="cart__item-remove">
-                    <Button outline className="button--circle">
+                    <Button outline className="button--circle" onClick={handleDeleteItem}>
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
                             <path

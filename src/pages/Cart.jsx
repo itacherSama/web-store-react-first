@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 import {Button} from "../components";
 import CartItem from "../components/CartItem";
-import {clearCart, incrementItem, decrementItem} from "../redux/actions/cart";
+import {clearCart, incrementItem, decrementItem, deleteItem} from "../redux/actions/cart";
 import {createArrayWithObjsByProperty} from './../utils/utils';
 
 const Cart = React.memo((props) => {
@@ -23,6 +23,10 @@ const Cart = React.memo((props) => {
 
     const handleClearCart = () => {
         dispatch(clearCart());
+    }
+
+    const onDeleteItem = (item) => {
+        dispatch(deleteItem(item));
     }
 
     let arrayItems = createArrayWithObjsByProperty(items, 'item');
@@ -72,6 +76,7 @@ const Cart = React.memo((props) => {
                                     key={`${idx}_${itemBlock}`}
                                     onIncrementItem={onIncrementItem}
                                     onDecrementItem={onDecrementItem}
+                                    onDeleteItem={onDeleteItem}
                                 />
                             ))
                         }

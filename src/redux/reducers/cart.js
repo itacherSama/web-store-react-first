@@ -1,5 +1,5 @@
 import actionTypes from "../actions/actionTypes";
-import {performOpItem, findTotalByProps} from "../../utils/utils";
+import {performOpItem, findTotalByProps, deleteItem} from "../../utils/utils";
 
 const pizzaaaa = {
     '0': [
@@ -109,9 +109,8 @@ const cartReducer = (state = initialState, action) => {
         case actionTypes.INCREMENT_PIZZA:
         case actionTypes.DECREMENT_PIZZA:
         case actionTypes.ADD_PIZZA: {
-            console.log(action.payload);
             const {item, operation} = action.payload;
-
+            console.log(item)
             const newItems = performOpItem(state.items[item.id], item, operation);
             const newState = {
                 ...state,
@@ -120,6 +119,29 @@ const cartReducer = (state = initialState, action) => {
                     [item.id]: newItems
                 }
             }
+            const [totalPrice, totalItems] = findTotalByProps(newState.items, ['totalPrice', 'totalItems']);
+            return {
+                ...newState,
+                totalItems,
+                totalPrice
+            }
+        }
+        case actionTypes.DELETE_PIZZA: {
+            const {item} = action.payload;
+
+            const newItems = deleteItem(state.items[item.id], item);
+            const newState = {
+                ...state,
+                items: {
+                    ...state.items,
+                    [item.id]: newItems
+                }
+            }
+
+            if (!newItems.length) {
+                delete newState.items[item.id];
+            }
+
             const [totalPrice, totalItems] = findTotalByProps(newState.items, ['totalPrice', 'totalItems']);
             return {
                 ...newState,

@@ -23,6 +23,13 @@ export const decrementItem = (objItem) => ({
     }
 });
 
+export const deleteItem = (objItem) => ({
+    type: actionTypes.DELETE_PIZZA,
+    payload: {
+        item: objItem
+    }
+});
+
 export const clearCart = () => ({
     type: actionTypes.CLEAR_CART
 });
