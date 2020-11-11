@@ -3,13 +3,13 @@ import cn from 'classnames';
 import PropTypes from "prop-types";
 import Button from "../Button";
 
-const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem, countPizzas}) => {
+const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem, countItem}) => {
     const availableTypes = ['тонкое', 'традиционное'];
     const availableSizes = [26, 30, 40];
     const [selectedType, setSelectedType] = React.useState(types[0]);
     const [selectedSize, setSelectedSize] = React.useState(sizes[0]);
     const pricePizza = price[availableSizes.indexOf(selectedSize)];
-
+    // console.log(countItem)
     const handleAddItem = () => {
         const objPizza = {
             id,
@@ -78,7 +78,7 @@ const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem, countPi
                         />
                     </svg>
                     <span>добавить</span>
-                    <i>{countPizzas}</i>
+                    {countItem && <i>{countItem}</i>}
                 </Button>
             </div>
         </div>

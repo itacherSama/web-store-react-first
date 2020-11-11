@@ -34,7 +34,11 @@ const Home = () => {
     const dispatch = useDispatch();
 
     const pizzas = useSelector(({pizzaReducer}) => pizzaReducer.items);
-    const countPizzas = useSelector(({cartReducer}) => [].map.call(cartReducer.items, el => el.length)); /* продолжить счетчик */
+    const countPizzas = useSelector(({cartReducer}) => {
+        console.log(cartReducer.items);
+
+    });
+    /* продолжить счетчик */
     const {sortBy, sortCategory} = useSelector(({filterReducer}) => filterReducer);
     const isLoading = useSelector(({pizzaReducer}) => pizzaReducer.isLoading);
     // console.log(countPizzas)
@@ -81,7 +85,7 @@ const Home = () => {
                         <PizzaBlock
                             key={pizza.id}
                             {...pizza}
-                            countItem={countPizzas[idx]}
+                            /*countItem={countPizzas[idx]}*/
                             onAddItem={onAddItem
                             }/>
                     )) : Array(10).fill(0).map((_, idx) => (

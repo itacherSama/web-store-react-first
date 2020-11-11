@@ -96,7 +96,7 @@ const pizzaaaa = {
         totalPrice: 675
       }
     ]
-  };
+};
 
 const initialState = {
     items: {...pizzaaaa},
