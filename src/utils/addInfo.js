@@ -21,3 +21,5 @@ export const sortNames = [
         order: 'desc'
     }
 ];
+
+export const textForHeader = ['самая вкусная пицца во вселенной', 'Самая реактивная пицца']

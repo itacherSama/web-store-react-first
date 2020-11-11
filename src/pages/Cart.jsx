@@ -6,6 +6,7 @@ import {Button} from "../components";
 import CartItem from "../components/CartItem";
 import {clearCart, incrementItem, decrementItem, deleteItem} from "../redux/actions/cart";
 import {createArrayWithObjsByProperty} from './../utils/utils';
+import CartEmpty from "../components/CartEmpty";
 
 const Cart = React.memo((props) => {
 
@@ -30,6 +31,10 @@ const Cart = React.memo((props) => {
     }
 
     let arrayItems = createArrayWithObjsByProperty(items, 'item');
+    
+    if (!arrayItems.length) {
+        return <CartEmpty />
+    }
 
     return (
         <div className="content">

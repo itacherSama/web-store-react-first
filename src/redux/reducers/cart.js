@@ -100,8 +100,8 @@ const pizzaaaa = {
 
 const initialState = {
     items: {},
-    totalPrice: 100,
-    totalItems: 1
+    totalPrice: 0,
+    totalItems: 0
 };
 
 const cartReducer = (state = initialState, action) => {
