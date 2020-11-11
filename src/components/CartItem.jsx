@@ -1,5 +1,6 @@
 import React from "react";
 import {Button} from "./index";
+import PropTypes from "prop-types";
 
 
 const CartItem = React.memo(({itemBlock, onDecrementItem, onIncrementItem, onDeleteItem}) => {
@@ -79,4 +80,12 @@ const CartItem = React.memo(({itemBlock, onDecrementItem, onIncrementItem, onDel
         )
     }
 )
+
+CartItem.propTypes = {
+    itemBlock: PropTypes.object,
+    onDecrementItem: PropTypes.func,
+    onIncrementItem: PropTypes.func,
+    onDeleteItem: PropTypes.func
+};
+
 export default CartItem;

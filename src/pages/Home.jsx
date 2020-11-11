@@ -6,42 +6,14 @@ import {setCategory, setSortBy} from "../redux/actions/filter";
 import {fetchPizzas} from "../redux/thunks/pizza";
 import {addItem} from "../redux/actions/cart";
 
-const categoriesNames = [
-    'мясные',
-    'вегетарианская',
-    'гриль',
-    'острые',
-    'закрытые'
-];
-
-const sortNames = [
-    {
-        name: 'популярности',
-        type: 'rating',
-        order: 'asc'
-    }, {
-        name: 'цене',
-        type: 'price',
-        order: 'asc'
-    }, {
-        name: 'алфавиту',
-        type: 'name',
-        order: 'desc'
-    }
-];
+import {categoriesNames, sortNames} from "../utils/addInfo";
 
 const Home = () => {
     const dispatch = useDispatch();
-
     const pizzas = useSelector(({pizzaReducer}) => pizzaReducer.items);
-    const countPizzas = useSelector(({cartReducer}) => {
-        console.log(cartReducer.items);
-
-    });
-    /* продолжить счетчик */
     const {sortBy, sortCategory} = useSelector(({filterReducer}) => filterReducer);
     const isLoading = useSelector(({pizzaReducer}) => pizzaReducer.isLoading);
-    // console.log(countPizzas)
+
     React.useEffect(() => {
         dispatch(fetchPizzas(sortBy, sortCategory));
     }, [sortBy, sortCategory]);
@@ -85,7 +57,6 @@ const Home = () => {
                         <PizzaBlock
                             key={pizza.id}
                             {...pizza}
-                            /*countItem={countPizzas[idx]}*/
                             onAddItem={onAddItem
                             }/>
                     )) : Array(10).fill(0).map((_, idx) => (

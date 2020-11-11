@@ -2,7 +2,7 @@ import actionTypes from "../actions/actionTypes";
 import {performOpItem, findTotalByProps, deleteItem} from "../../utils/utils";
 
 const pizzaaaa = {
-    '0': [
+    0: [
       {
         item: {
           id: 0,
@@ -16,7 +16,7 @@ const pizzaaaa = {
         totalPrice: 3600
       }
     ],
-    '2': [
+    2: [
       {
         item: {
           id: 2,
@@ -30,7 +30,7 @@ const pizzaaaa = {
         totalPrice: 1180
       }
     ],
-    '3': [
+    3: [
       {
         item: {
           id: 3,
@@ -56,7 +56,7 @@ const pizzaaaa = {
         totalPrice: 510
       }
     ],
-    '5': [
+    5: [
       {
         item: {
           id: 5,
@@ -82,7 +82,7 @@ const pizzaaaa = {
         totalPrice: 720
       }
     ],
-    '6': [
+    6: [
       {
         item: {
           id: 6,
@@ -99,7 +99,7 @@ const pizzaaaa = {
 };
 
 const initialState = {
-    items: {...pizzaaaa},
+    items: {},
     totalPrice: 100,
     totalItems: 1
 };
@@ -110,7 +110,6 @@ const cartReducer = (state = initialState, action) => {
         case actionTypes.DECREMENT_PIZZA:
         case actionTypes.ADD_PIZZA: {
             const {item, operation} = action.payload;
-            console.log(item)
             const newItems = performOpItem(state.items[item.id], item, operation);
             const newState = {
                 ...state,

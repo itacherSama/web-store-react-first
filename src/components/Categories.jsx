@@ -1,5 +1,7 @@
 import React from 'react';
 import cn from 'classnames'
+import PropTypes from "prop-types";
+import CartItem from "./CartItem";
 
 const Categories = React.memo(({items, onSelectCategory, sortCategory}) => {
 
@@ -31,5 +33,11 @@ const Categories = React.memo(({items, onSelectCategory, sortCategory}) => {
         </div>
     );
 });
+
+Categories.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.string),
+    onSelectCategory: PropTypes.func,
+    sortCategory: PropTypes.number
+};
 
 export default Categories;

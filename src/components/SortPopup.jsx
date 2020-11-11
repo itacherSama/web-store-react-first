@@ -1,5 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import cn from 'classnames';
+import PropTypes from "prop-types";
+import Categories from "./Categories";
 
 const SortPopup = React.memo(({items, onSelectBySort, sortBy}) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
@@ -66,5 +68,11 @@ const SortPopup = React.memo(({items, onSelectBySort, sortBy}) => {
 
     )
 })
+
+Categories.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.string),
+    onSelectBySort: PropTypes.func,
+    sortBy: PropTypes.object
+};
 
 export default SortPopup;

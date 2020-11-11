@@ -2,14 +2,17 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from "prop-types";
 import Button from "../Button";
+import {useSelector} from "react-redux";
+import {getCountItemById} from "../../utils/selectorsLogic";
 
-const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem, countItem}) => {
+const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem}) => {
     const availableTypes = ['тонкое', 'традиционное'];
     const availableSizes = [26, 30, 40];
     const [selectedType, setSelectedType] = React.useState(types[0]);
     const [selectedSize, setSelectedSize] = React.useState(sizes[0]);
     const pricePizza = price[availableSizes.indexOf(selectedSize)];
-    // console.log(countItem)
+    const countPizza = useSelector(({cartReducer}) => getCountItemById(cartReducer.items[id]));
+
     const handleAddItem = () => {
         const objPizza = {
             id,
@@ -78,7 +81,7 @@ const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem, countIt
                         />
                     </svg>
                     <span>добавить</span>
-                    {countItem && <i>{countItem}</i>}
+                    {countPizza && <i>{countPizza}</i>}
                 </Button>
             </div>
         </div>
@@ -86,18 +89,13 @@ const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem, countIt
 }
 
 PizzaBlock.propTypes = {
+    id: PropTypes.number,
     name: PropTypes.string,
     types: PropTypes.arrayOf(PropTypes.number),
     sizes: PropTypes.arrayOf(PropTypes.number),
     imageUrl: PropTypes.string,
     price: PropTypes.arrayOf(PropTypes.number),
-}
-
-PizzaBlock.defaultProps = {
-    name: '',
-    types: [],
-    sizes: [],
-    price: 0,
+    onAddItem: PropTypes.func
 }
 
 export default PizzaBlock;
