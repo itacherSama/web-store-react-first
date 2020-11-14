@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "server": "npx json-server --watch public/db.json --port=3001",
+    "server": "npx json-server --watch src/public/db.json --port=3001",
     "test": "jest",
     "build": "webpack",
     "all": "concurrently \"npm run server\" \"npm run start\"",
