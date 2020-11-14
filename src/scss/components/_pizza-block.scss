@@ -19,12 +19,19 @@
         padding-bottom: 22px;
     }
 
-    &__section {
+    &_section {
         background-color: $bgc-tile;
         border-radius: 10px;
         padding: 5px;
 
-        &_item {
+        ul {
+            display: flex;
+            &:first-child {
+                padding-bottom: 10px;
+            }
+        }
+
+        li {
             padding: 6px 0px;
             flex-grow: 1;
             font-size: 14px;
@@ -43,14 +50,6 @@
         margin-bottom: 20px;
     }
 
-    .types, .sizes {
-        display: flex;
-    }
-
-    .types {
-        padding-bottom: 10px;
-    }
-
     &__bot {
         display: flex;
         justify-content: space-between;
@@ -62,10 +61,8 @@
 
         }
 
-        &_count {
-            display: flex;
-            justify-content: space-around;
-            align-items: baseline;
+        span + i {
+            margin-left: 5px;
         }
     }
     
