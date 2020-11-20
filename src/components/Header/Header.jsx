@@ -2,11 +2,11 @@ import React from "react";
 import {Link, useLocation} from "react-router-dom";
 import {useSelector} from 'react-redux';
 
-import Button from "./Button";
-import logoSvg from "../assets/img/pizza-logo.svg";
-import {textForHeader} from "../utils/addInfo";
+import Button from "../Button";
+import logoSvg from "../../assets/img/pizza-logo.svg";
+import {textForHeader} from "../../utils/addInfo";
 
-
+import styles from './header.scss';
 
 const Header = React.memo(() => {
         const {totalPrice, totalItems} = useSelector(({cartReducer}) => cartReducer);
@@ -59,7 +59,7 @@ const Header = React.memo(() => {
         )
 
         return (
-            <div className="header">
+            <div className={styles.header}>
                 <div className="container">
                     <div className="header__logo">
                         <img width="38" src={logoSvg} alt="Pizza logo"/>
