@@ -1,12 +1,13 @@
 import React from "react";
 import {Link, useLocation} from "react-router-dom";
 import {useSelector} from 'react-redux';
+import cn from 'classnames';
 
-import Button from "../Button";
+import Button from "../Button/Button";
 import logoSvg from "../../assets/img/pizza-logo.svg";
 import {textForHeader} from "../../utils/addInfo";
 
-import styles from './header.scss';
+import styles from './header.module.scss';
 
 const Header = React.memo(() => {
         const {totalPrice, totalItems} = useSelector(({cartReducer}) => cartReducer);
@@ -18,11 +19,11 @@ const Header = React.memo(() => {
         }, [location]);
 
         const headerCart = (
-            <div className="header__cart">
+            <div className={styles.headerCart}>
                 <Link to={'/cart'}>
-                    <Button className="button--cart">
+                    <Button className={'buttonCart'}>
                         <span>{totalPrice} ₽</span>
-                        <div className="button__delimiter"></div>
+                        <div className={styles.headerCartDelimiter}></div>
                         <svg
                             width="18"
                             height="18"
@@ -60,8 +61,8 @@ const Header = React.memo(() => {
 
         return (
             <div className={styles.header}>
-                <div className="container">
-                    <div className="header__logo">
+                <div className={cn('container', styles.container)}>
+                    <div className={styles.headerLogo}>
                         <img width="38" src={logoSvg} alt="Pizza logo"/>
                         <div>
                             <h1>React Pizza</h1>

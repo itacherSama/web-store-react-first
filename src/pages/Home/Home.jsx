@@ -1,12 +1,12 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
-import {Categories, SortPopup, PizzaBlock, PizzaLoader} from '../components';
-import {setCategory, setSortBy} from "../redux/actions/filter";
-import {fetchPizzas} from "../redux/thunks/pizza";
-import {addItem} from "../redux/actions/cart";
+import {Categories, SortPopup, PizzaBlock, PizzaLoader} from './../../components';
+import {setCategory, setSortBy} from "./../../redux/actions/filter";
+import {fetchPizzas} from "./../../redux/thunks/pizza";
+import {addItem} from "./../../redux/actions/cart";
 
-import {categoriesNames, sortNames} from "../utils/addInfo";
+import {categoriesNames, sortNames} from "./../../utils/addInfo";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -50,7 +50,7 @@ const Home = () => {
                     sortBy={sortBy}
                 />
             </div>
-            <h2 className='content__title'>все пиццы</h2>
+            <h2 className='content__title'>Все пиццы</h2>
             <div className='content__items'>
                 {
                     !isLoading ? pizzas.map((pizza, idx) => (

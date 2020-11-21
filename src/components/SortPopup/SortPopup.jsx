@@ -1,11 +1,13 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import cn from 'classnames';
 import PropTypes from "prop-types";
-import Categories from "./Categories";
+
+import styles from './SortPopup.module.scss';
+
 
 const SortPopup = React.memo(({items, onSelectBySort, sortBy}) => {
-    const [visiblePopup, setVisiblePopup] = useState(false);
-    const sortPopupItem = useRef();
+    const [visiblePopup, setVisiblePopup] = React.useState(false);
+    const sortPopupItem = React.useRef();
     const sortByName = items.find((obj) => obj.type === sortBy.type).name;
 
     const toggleVisiblePopup = () => {
@@ -23,7 +25,7 @@ const SortPopup = React.memo(({items, onSelectBySort, sortBy}) => {
         }
     }
 
-    useEffect(() => {
+    React.useEffect(() => {
         window.addEventListener('click', hideVisiblePopup);
 
         return window.removeEventListener('click', hideVisiblePopup);
@@ -33,10 +35,10 @@ const SortPopup = React.memo(({items, onSelectBySort, sortBy}) => {
         <div
             ref={sortPopupItem}
             onClick={toggleVisiblePopup}
-            className="sort">
-            <div className="sort__label">
+            className={styles.sort}>
+            <div className={styles.sortLabel}>
                 <svg
-                    className={visiblePopup ? 'rotated' : ''}
+                    className={visiblePopup ? styles.rotated : ''}
                     width="10"
                     height="6"
                     viewBox="0 0 10 6"
@@ -51,12 +53,12 @@ const SortPopup = React.memo(({items, onSelectBySort, sortBy}) => {
                 <b>сортировка по:</b>
                 <span>{sortByName}</span>
             </div>
-            {visiblePopup && <div className="sort__popup">
+            {visiblePopup && <div className={styles.sortPopup}>
                 <ul>
                     {items && items.map((item, index) => (
                         <li
                             className={cn({
-                                active: sortBy.type === items[index].type
+                                [styles.active]: sortBy.type === items[index].type
                             })}
                             onClick={() => onSelectItem(index)}
                             key={`${item.type}_${index}`}>
@@ -69,7 +71,7 @@ const SortPopup = React.memo(({items, onSelectBySort, sortBy}) => {
     )
 })
 
-Categories.propTypes = {
+SortPopup.propTypes = {
     items: PropTypes.arrayOf(PropTypes.string),
     onSelectBySort: PropTypes.func,
     sortBy: PropTypes.object

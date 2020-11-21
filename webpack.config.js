@@ -9,6 +9,41 @@ const ENV = process.env.APP_ENV;
 
 const isProd = ENV === 'production';
 
+const CSSModuleLoader = {
+    loader: 'css-loader',
+    options: {
+    modules: {
+        localIdentName: '[name]_[local]_[hash:base64:5]',
+        exportLocalsConvention: "camelCase",
+        mode: "local",
+
+    },
+    importLoaders: 2,
+    sourceMap: false, // turned off as causes delay
+   }
+ }
+ // For our normal CSS files we would like them globally scoped
+ const CSSLoader = {
+    loader: 'css-loader',
+    options: {
+    modules: {
+        mode: "global",
+        exportLocalsConvention: "camelCase"
+    },
+    importLoaders: 2,
+    sourceMap: false, // turned off as causes delay
+   }
+ }
+
+ const SASSLoader = {
+    loader: "sass-loader",
+    options: {
+        sassOptions: {
+            data: '@import "variables";',
+            includePaths: [path.resolve(__dirname, "./src/scss")]
+        },
+    },
+}
 
 const config = {
     mode: ENV,
@@ -21,21 +56,14 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.scss$/,
-                use: [{
-                    loader: "style-loader"
-                }, {
-                    loader: "css-loader"
-                }, {
-                    loader: "sass-loader",
-                    options: {
-                        sassOptions: {
-                            data: '@import "variables";',
-                            includePaths: [path.resolve(__dirname, "./src/scss")]
-                        },
-                    },
-                }]
-            },
+                test: /\.(sa|sc|c)ss$/,
+                exclude: /\.module\.(sa|sc|c)ss$/,
+                use: ["style-loader", CSSLoader, SASSLoader]
+               },
+               {
+                test: /\.module\.(sa|sc|c)ss$/,
+                use: ["style-loader", CSSModuleLoader, SASSLoader]
+               },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,

@@ -1,7 +1,8 @@
 import React from 'react';
 import cn from 'classnames'
 import PropTypes from "prop-types";
-import CartItem from "./CartItem";
+
+import styles from './Categories.module.scss';
 
 const Categories = React.memo(({items, onSelectCategory, sortCategory}) => {
 
@@ -9,11 +10,11 @@ const Categories = React.memo(({items, onSelectCategory, sortCategory}) => {
         onSelectCategory(index);
     }
     return (
-        <div className="categories">
+        <div className={styles.categories}>
             <ul>
                 <li
                     className={cn({
-                        active: sortCategory === null,
+                        [styles.active]: sortCategory === null,
                     })}
                     onClick={() => onSelectItem(null)}
                 >Все</li>
@@ -21,7 +22,7 @@ const Categories = React.memo(({items, onSelectCategory, sortCategory}) => {
                     items && items.map((name, index) => (
                         <li
                             className={cn({
-                                active: sortCategory === index,
+                                [styles.active]: sortCategory === index,
                             })}
                             onClick={() => onSelectItem(index)}
                             key={`${name}_${index}`}

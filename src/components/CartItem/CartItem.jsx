@@ -1,6 +1,9 @@
 import React from "react";
-import {Button} from "./index";
+import cn from 'classnames';
 import PropTypes from "prop-types";
+
+import {Button} from "../index";
+import styles from './CartItem.module.scss';
 
 
 const CartItem = React.memo(({itemBlock, onDecrementItem, onIncrementItem, onDeleteItem}) => {
@@ -19,22 +22,23 @@ const CartItem = React.memo(({itemBlock, onDecrementItem, onIncrementItem, onDel
         }
 
         return (
-            <div className="cart__item">
-                <div className="cart__item-img">
+            <div className={styles.cartItem}>
+                <div className={styles.cartItemImg}>
                     <img
-                        className="pizza-block__image"
+                        className={styles.pizzaBlockImage}
                         src={item.imageUrl}
                         alt="Pizza"
                     />
                 </div>
-                <div className="cart__item-info">
+                <div className={styles.cartItemInfo}>
                     <h3>{item.name}</h3>
                     <p>{item.type} тесто, {item.size} см.</p>
                 </div>
-                <div className="cart__item-count">
-                    <Button outline className="button--circle cart__item-count-minus" onClick={handleDecrementItem}>
+                <div className={styles.cartItemCount}>
+                    <Button outline className={cn('buttonCircle', styles.cartItemCountMinus)} onClick={handleDecrementItem}>
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
+                    
                             <path
                                 d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"
                                 fill="#EB5A1E"/>
@@ -45,7 +49,7 @@ const CartItem = React.memo(({itemBlock, onDecrementItem, onIncrementItem, onDel
 
                     </Button>
                     <b>{totalItems}</b>
-                    <Button outline className="button--circle cart__item-count-plus" onClick={handleIncrementItem}>
+                    <Button outline className={cn('buttonCircle', styles.cartItemCountPlus)} onClick={handleIncrementItem}>
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -58,11 +62,11 @@ const CartItem = React.memo(({itemBlock, onDecrementItem, onIncrementItem, onDel
 
                     </Button>
                 </div>
-                <div className="cart__item-price">
+                <div className={styles.cartItemPrice}>
                     <b>{totalPrice} ₽</b>
                 </div>
-                <div className="cart__item-remove">
-                    <Button outline className="button--circle" onClick={handleDeleteItem}>
+                <div className={styles.cartItemRemove}>
+                    <Button outline className={cn('buttonCircle', 'buttonRemove')} onClick={handleDeleteItem}>
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
                             <path

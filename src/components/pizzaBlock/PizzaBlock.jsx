@@ -1,8 +1,11 @@
 import React from 'react';
 import cn from 'classnames';
 import PropTypes from "prop-types";
-import Button from "../Button";
 import {useSelector} from "react-redux";
+
+
+import styles from './PizzaBlock.module.scss';
+import {Button} from "../index";
 import {getCountItemById} from "../../utils/selectorsLogic";
 
 const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem}) => {
@@ -31,11 +34,11 @@ const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem}) => {
             items.map((type, index) => (
                 <li
                     className={cn({
-                        active:
+                        [styles.active]:
                             (idx && selectedItem === index)
                             ||
                             (!idx && selectedItem === availableTypes[index]),
-                        disabled:
+                        [styles.disabled]:
                             (idx && !availableTypes.includes(index))
                             ||
                             (!idx && !availableTypes.includes(availableTypes[index])),
@@ -50,14 +53,14 @@ const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem}) => {
     }
 
     return (
-        <div className='pizza-block'>
+        <div className={styles.pizzaBlock}>
             <img
-                className='pizza-block__image'
+                className={styles.pizzaBlockImage}
                 src={imageUrl}
                 alt='pizza'
             />
-            <h4 className='pizza-block__title'>{name}</h4>
-            <div className='pizza-block__selector'>
+            <h4 className={styles.pizzaBlockTitle}>{name}</h4>
+            <div className={styles.pizzaBlockSelector}>
                 <ul>
                     {selectTypeOfItem(availableTypes, selectedType, types, setSelectedType, true)}
                 </ul>
@@ -65,9 +68,9 @@ const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem}) => {
                     {selectTypeOfItem(availableSizes, selectedSize, sizes, setSelectedSize, false)}
                 </ul>
             </div>
-            <div className='pizza-block__bottom'>
-                <div className='pizza-block__price'>от {pricePizza} ₽</div>
-                <Button className='button button--add' outline onClick={handleAddItem}>
+            <div className={styles.pizzaBlockBottom}>
+                <div className={styles.pizzaBlockPrice}>от {pricePizza} ₽</div>
+                <Button className={'buttonAdd'} outline onClick={handleAddItem}>
                     <svg
                         width='12'
                         height='12'

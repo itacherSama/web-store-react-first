@@ -1,12 +1,13 @@
 import React from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
+import cn from 'classnames';
 
-import {Button} from "../components";
-import CartItem from "../components/CartItem";
-import {clearCart, incrementItem, decrementItem, deleteItem} from "../redux/actions/cart";
-import {createArrayWithObjsByProperty} from './../utils/utils';
-import CartEmpty from "../components/CartEmpty";
+import styles from './Cart.module.scss';
+
+import {Button, CartItem, CartEmpty} from "./../../components";
+import {clearCart, incrementItem, decrementItem, deleteItem} from "./../../redux/actions/cart";
+import {createArrayWithObjsByProperty} from './../../utils/utils';
 
 const Cart = React.memo((props) => {
 
@@ -38,10 +39,10 @@ const Cart = React.memo((props) => {
 
     return (
         <div className="content">
-            <div className="container container--cart">
-                <div className="cart">
-                    <div className="cart__top">
-                        <h2 className="content__title">
+            <div className={cn('container', styles.containerCart)}>
+                <div className={styles.cart}>
+                    <div className={styles.cartTop}>
+                        <h2 className={styles.contentTitle}>
                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -56,7 +57,7 @@ const Cart = React.memo((props) => {
                             </svg>
                             Корзина
                         </h2>
-                        <div className="cart__clear" onClick={handleClearCart}>
+                        <div className={styles.cartClear} onClick={handleClearCart}>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.5 5H4.16667H17.5" stroke="#B6B6B6" strokeWidth="1.2" strokeLinecap="round"
@@ -73,7 +74,7 @@ const Cart = React.memo((props) => {
                             <span>Очистить корзину</span>
                         </div>
                     </div>
-                    <div className="content__items">
+                    <div className={styles.contentItems}>
                         {
                             arrayItems && arrayItems.map((itemBlock, idx) => (
                                 <CartItem
@@ -86,13 +87,13 @@ const Cart = React.memo((props) => {
                             ))
                         }
                     </div>
-                    <div className="cart__bottom">
-                        <div className="cart__bottom-details">
+                    <div className={styles.cartBottom}>
+                        <div className={styles.cartBottomDetails}>
                             <span> Всего пицц: <b>{totalItems}</b> </span>
                             <span> Сумма заказа: <b>{totalPrice} ₽</b> </span>
                         </div>
-                        <div className="cart__bottom-buttons">
-                            <Button outline className="button--add go-back-btn">
+                        <div className={styles.cartBottomButtons}>
+                            <Button outline className={cn('', 'buttonGoBack')}>
                                 <Link to="/">
                                     <svg width="8" height="14" viewBox="0 0 8 14" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
@@ -103,7 +104,7 @@ const Cart = React.memo((props) => {
                                     <span>Вернуться назад</span>
                                 </Link>
                             </Button>
-                            <Button className="pay-btn">
+                            <Button className={'buttonPay'}>
                                 <span>Оплатить сейчас</span>
                             </Button>
                         </div>
