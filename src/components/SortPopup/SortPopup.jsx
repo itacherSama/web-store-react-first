@@ -2,6 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from "prop-types";
 
+
 import styles from './SortPopup.module.scss';
 
 
@@ -10,11 +11,12 @@ const SortPopup = React.memo(({items, onSelectBySort, sortBy}) => {
     const sortPopupItem = React.useRef();
     const sortByName = items.find((obj) => obj.type === sortBy.type).name;
 
+
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup);
     }
 
-    const onSelectItem = (index) => {
+        const onSelectItem = (index) => {
         onSelectBySort(index);
     }
 
@@ -30,6 +32,8 @@ const SortPopup = React.memo(({items, onSelectBySort, sortBy}) => {
 
         return window.removeEventListener('click', hideVisiblePopup);
     }, []);
+
+    
 
     return (
         <div

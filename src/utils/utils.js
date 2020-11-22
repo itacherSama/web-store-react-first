@@ -106,3 +106,17 @@ export const createArrayWithObjsByProperty = (Obj, prop) => {
     }
     return newArr;
 }
+
+export const addSearchParamsUrl = (option, value, location, history) => {
+    let searchParams = new URLSearchParams(location.search);
+        if (value === null && searchParams.has(option)) {
+            searchParams.delete(option);
+        } else {
+            searchParams.set(option, value);
+        };
+        
+        history.push({
+            ...location,
+            search: searchParams.toString()
+        });
+}

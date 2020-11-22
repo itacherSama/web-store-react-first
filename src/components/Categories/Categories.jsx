@@ -8,7 +8,9 @@ const Categories = React.memo(({items, onSelectCategory, sortCategory}) => {
 
     const onSelectItem = (index) => {
         onSelectCategory(index);
+        
     }
+
     return (
         <div className={styles.categories}>
             <ul>
