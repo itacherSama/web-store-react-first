@@ -1,32 +1,33 @@
-import React from 'react';
-import {Link} from "react-router-dom";
-import cn from 'classnames';
+    import React from 'react';
+    import { Link } from "react-router-dom";
+    import cn from 'classnames';
 
-import {Button} from './../index';
-import styles from '../../pages/Cart/Cart.module.scss';
+    import { Button } from './../index';
+    import styles from '../../pages/Cart/Cart.module.scss';
 
-import emptyCartImg from '../../assets/img/empty-cart.png';
+    import emptyCartImg from '../../assets/img/empty-cart.png';
 
-const CartEmpty = React.memo(() => {
-    return (
-        <div className="content">
-            <div className="container">
-                <div className={cn(styles.cart, styles.cartEmpty)}>
-                    <h2>Корзина пустая <i>😕</i></h2>
-                    <p>
-                        Вероятней всего, вы не заказывали ещё пиццу.<br/>
-                        Для того, чтобы заказать пиццу, перейди на главную страницу.
-                    </p>
-                    <img src={emptyCartImg} alt="Empty cart"/>
-                    <Button className={'buttonBlack'}>
+    const CartEmpty = React.memo(() => {
+        return (
+            <div className="content">
+                <div className="container">
+                    <div className={cn(styles.cart, styles.cartEmpty)}>
+                        <h2>Корзина пустая <i>😕</i></h2>
+                        <p>
+                            Вероятней всего, вы не заказывали ещё пиццу.<br />
+                            Для того, чтобы заказать пиццу, перейди на главную страницу.
+                        </p>
+                        <img src={emptyCartImg} alt="Empty cart" />
                         <Link to={'/'}>
-                            <span>Вернуться назад</span>
+                            <Button className={'buttonBlack'}>
+                                <span>Вернуться назад</span>
+                            </Button>
                         </Link>
-                    </Button>
+
+                    </div>
                 </div>
             </div>
-        </div>
-    )
-});
+        )
+    });
 
-export default CartEmpty;
+    export default CartEmpty;
