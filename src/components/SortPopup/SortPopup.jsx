@@ -76,7 +76,7 @@ const SortPopup = React.memo(({items, onSelectBySort, sortBy}) => {
 })
 
 SortPopup.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.string),
+    items: PropTypes.arrayOf(PropTypes.object),
     onSelectBySort: PropTypes.func,
     sortBy: PropTypes.object
 };
