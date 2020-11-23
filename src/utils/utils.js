@@ -10,7 +10,7 @@ export const performOpItem = (items = [], item, operation) => {
 
 export const hasItemInArray = (array, item) => {
     const res = findIndexInArray(array, item);
-        return res !== -1;
+    return res !== -1;
 }
 
 const findIndexInArray = (array, item) => {
@@ -40,7 +40,7 @@ export const incOrDeсItem = (array, item, operation = '+') => {
 }
 
 export const copyFullArrayWithObj = (arr) => {
-    return arr.map(el => ({...el}));
+    return arr.map(el => ({ ...el }));
 }
 
 export const addItem = (arr, item) => {
@@ -53,7 +53,7 @@ export const addItem = (arr, item) => {
         }
     ]
 }
-// не работает
+
 export const deleteItem = (arr, item) => {
     const idx = findIndexInArray(arr, item);
     return arr.filter((el, index) => {
@@ -80,7 +80,7 @@ export const findTotalByProps = (items, findProps) => {
 
 export const createArrayWithObjsByProperty = (Obj, prop) => {
     let newArr = [];
-    
+
     const checkPropertyInObj = (Obj, prop) => {
         const firstItemInObj = Obj[(Object.keys(Obj)[0])];
         let res = firstItemInObj.hasOwnProperty(prop) ? Obj : false;
@@ -88,7 +88,7 @@ export const createArrayWithObjsByProperty = (Obj, prop) => {
     }
 
     const findObjByProp = (Obj, prop) => {
-        
+
         let res = checkPropertyInObj(Obj, prop);
         if (!!res) {
             newArr.push(...res);
@@ -96,7 +96,7 @@ export const createArrayWithObjsByProperty = (Obj, prop) => {
         if (!res) {
             for (let elem in Obj) {
                 findObjByProp(Obj[elem], prop);;
-            }    
+            }
         }
     }
     try {
@@ -105,18 +105,4 @@ export const createArrayWithObjsByProperty = (Obj, prop) => {
         return newArr;
     }
     return newArr;
-}
-
-export const addSearchParamsUrl = (option, value, location, history) => {
-    let searchParams = new URLSearchParams(location.search);
-        if (value === null && searchParams.has(option)) {
-            searchParams.delete(option);
-        } else {
-            searchParams.set(option, value);
-        };
-        
-        history.push({
-            ...location,
-            search: searchParams.toString()
-        });
 }

@@ -16,9 +16,9 @@ const Categories = React.memo(({items, onSelectCategory, sortCategory}) => {
             <ul>
                 <li
                     className={cn({
-                        [styles.active]: sortCategory === null,
+                        [styles.active]: sortCategory === 'all',
                     })}
-                    onClick={() => onSelectItem(null)}
+                    onClick={() => onSelectItem('all')}
                 >Все</li>
                 {
                     items && items.map((name, index) => (
@@ -40,7 +40,7 @@ const Categories = React.memo(({items, onSelectCategory, sortCategory}) => {
 Categories.propTypes = {
     items: PropTypes.arrayOf(PropTypes.string),
     onSelectCategory: PropTypes.func,
-    sortCategory: PropTypes.number
+    sortCategory: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
 export default Categories;

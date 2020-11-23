@@ -5,7 +5,7 @@ const initialState = {
         type: 'rating',
         order: 'asc',
     },
-    sortCategory: null
+    sortCategory: 'all'
 };
 
 const filterReducer = (state = initialState, action) => {
