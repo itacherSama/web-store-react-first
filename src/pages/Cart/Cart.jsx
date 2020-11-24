@@ -7,13 +7,15 @@ import styles from './Cart.module.scss';
 
 import {Button, CartItem, CartEmpty} from "./../../components";
 import {clearCart, incrementItem, decrementItem, deleteItem} from "./../../redux/actions/cart";
-import {createArrayWithObjsByProperty} from './../../utils/utils';
+import {createItemsForCartSelector} from './../../utils/selectorsLogic';
 
 const Cart = React.memo((props) => {
 
     const dispatch = useDispatch();
-    const {items, totalItems, totalPrice} = useSelector(({cartReducer}) => cartReducer);
-
+    const {totalItems, totalPrice} = useSelector(({cartReducer}) => cartReducer);
+    const arrayItems = useSelector((state => 
+        createItemsForCartSelector(state, 'item')
+    ));
 
     const onIncrementItem = (item) => {
         dispatch(incrementItem(item));
@@ -31,7 +33,6 @@ const Cart = React.memo((props) => {
         dispatch(deleteItem(item));
     }
 
-    let arrayItems = createArrayWithObjsByProperty(items, 'item');
     
     if (!arrayItems.length) {
         return <CartEmpty />

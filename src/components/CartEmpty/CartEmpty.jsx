@@ -18,7 +18,7 @@
                             Для того, чтобы заказать пиццу, перейди на главную страницу.
                         </p>
                         <img src={emptyCartImg} alt="Empty cart" />
-                        <Link to={'/'}>
+                        <Link to='/'>
                             <Button className={'buttonBlack'}>
                                 <span>Вернуться назад</span>
                             </Button>

@@ -1,14 +1,23 @@
-export function getCountItemsById(items) {
-    return new Map(Object.keys(items).map(el => {
-        return [parseInt(el), items[el].reduce((prev, cur) => {
-            return prev + cur.totalItems;
-        }, 0)];
-    }));
-}
+import { createSelector } from 'reselect';
+import { createArrayWithObjsByProperty, getCountItemById } from './utils';
 
-export function getCountItemById(item) {
-    if (!Array.isArray(item)) return false;
-    return item.reduce((prev, cur) => {
-        return prev + cur.totalItems;
-    }, 0);
-}
+const getCartItemsSelector = state => state.cartReducer.items;
+const getItemByIdSelector = (items, id) => items[id];
+
+export const createItemsForCartSelector = createSelector(
+    getCartItemsSelector,
+    (_, item) => item,
+    createArrayWithObjsByProperty
+);
+
+export const getCartItemSelector = createSelector(
+    getCartItemsSelector,
+    (_, id) => id,
+    getItemByIdSelector
+);
+      
+export const getCountItemByIdSelector = () => createSelector(
+    getCartItemSelector,
+    getCountItemById
+);
+

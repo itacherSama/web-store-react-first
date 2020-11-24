@@ -27,7 +27,7 @@ const CartItem = React.memo(({itemBlock, onDecrementItem, onIncrementItem, onDel
                     <img
                         className={styles.pizzaBlockImage}
                         src={item.imageUrl}
-                        alt="Pizza"
+                        alt={item.name}
                     />
                 </div>
                 <div className={styles.cartItemInfo}>

@@ -1,7 +1,7 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import React from 'react';
 
-import {Home, Cart} from './pages';
+import {Home, Cart, NotFound} from './pages';
 import { Header } from "./components";
 
 
@@ -13,8 +13,19 @@ function App() {
             <div className="wrapper">
                 <Header />
                 <div className="content">
-                    <Route path="/" component={Home} exact />
-                    <Route path="/cart" component={Cart} exact />
+                    <Switch>
+                        <Route path="/" exact>
+                            <Home />
+                        </Route>
+                        <Route path="/cart">
+                            <Cart />
+                        </Route>
+
+                        <Route>
+                            <NotFound />
+                        </Route>
+
+                    </Switch>
                 </div>
             </div>
         </div>

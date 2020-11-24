@@ -22,4 +22,8 @@ export const sortNames = [
     }
 ];
 
+export const availableTypes = ['тонкое', 'традиционное'];
+
+export const availableSizes = [26, 30, 40];
+
 export const textForHeader = ['самая вкусная пицца во вселенной', 'Самая реактивная пицца']

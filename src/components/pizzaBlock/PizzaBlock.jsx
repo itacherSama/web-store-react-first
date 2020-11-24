@@ -6,15 +6,23 @@ import {useSelector} from "react-redux";
 
 import styles from './PizzaBlock.module.scss';
 import {Button} from "../index";
-import {getCountItemById} from "../../utils/selectorsLogic";
+import {availableTypes, availableSizes} from "../../utils/addInfo";
+import {getCountItemById} from "../../utils/utils";
+import {getCountItemByIdSelector} from "../../utils/selectorsLogic";
 
 const PizzaBlock = ({id, name, types, imageUrl, sizes, price, onAddItem}) => {
-    const availableTypes = ['тонкое', 'традиционное'];
-    const availableSizes = [26, 30, 40];
     const [selectedType, setSelectedType] = React.useState(types[0]);
     const [selectedSize, setSelectedSize] = React.useState(sizes[0]);
     const pricePizza = price[availableSizes.indexOf(selectedSize)];
+    // const memoGetCountItemByIdSelector = React.useMemo(
+    //     getCountItemByIdSelector,
+    //     []
+    // );
+    // const countPizza = useSelector(state => 
+    //     memoGetCountItemByIdSelector(state, id)
+    // );
     const countPizza = useSelector(({cartReducer}) => getCountItemById(cartReducer.items[id]));
+    console.log(countPizza);
 
     const handleAddItem = () => {
         const objPizza = {

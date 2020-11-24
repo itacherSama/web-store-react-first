@@ -1,8 +1,6 @@
 const path = require('path');
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 require('dotenv').config()
 const ENV = process.env.APP_ENV;
@@ -19,10 +17,10 @@ const CSSModuleLoader = {
 
     },
     importLoaders: 2,
-    sourceMap: false, // turned off as causes delay
+    sourceMap: false, 
    }
  }
- // For our normal CSS files we would like them globally scoped
+
  const CSSLoader = {
     loader: 'css-loader',
     options: {
@@ -31,7 +29,7 @@ const CSSModuleLoader = {
         exportLocalsConvention: "camelCase"
     },
     importLoaders: 2,
-    sourceMap: false, // turned off as causes delay
+    sourceMap: false,
    }
  }
 
@@ -107,7 +105,7 @@ const config = {
         port: 8080,
         contentBase: path.join(__dirname, "dist"),
         // open: true
-        publicPath: '/',
+        historyApiFallback: true,
 
     },
     devtool: setDevTool(),

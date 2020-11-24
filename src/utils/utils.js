@@ -104,5 +104,13 @@ export const createArrayWithObjsByProperty = (Obj, prop) => {
     } catch (error) {
         return newArr;
     }
+
     return newArr;
+}
+
+export function getCountItemById(item) {
+    if (!Array.isArray(item)) return false;
+    return item.reduce((prev, cur) => {
+        return prev + cur.totalItems;
+    }, 0);
 }
