@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { createArrayWithObjsByProperty, getCountItemById } from './utils';
+import { createArrayWithObjsByProperty, getCountItemById } from '@utils/utils';
 
 const getCartItemsSelector = state => state.cartReducer.items;
 const getItemByIdSelector = (items, id) => items[id];

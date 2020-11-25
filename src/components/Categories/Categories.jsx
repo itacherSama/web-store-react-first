@@ -4,43 +4,43 @@ import PropTypes from "prop-types";
 
 import styles from './Categories.module.scss';
 
-const Categories = React.memo(({items, onSelectCategory, sortCategory}) => {
+const Categories = React.memo(({ items, onSelectCategory, sortCategory }) => {
 
-    const onSelectItem = (index) => {
-        onSelectCategory(index);
-        
-    }
+  const onSelectItem = (index) => {
+    onSelectCategory(index);
 
-    return (
-        <div className={styles.categories}>
-            <ul>
-                <li
-                    className={cn({
-                        [styles.active]: sortCategory === 'all',
-                    })}
-                    onClick={() => onSelectItem('all')}
-                >Все</li>
-                {
-                    items && items.map((name, index) => (
-                        <li
-                            className={cn({
-                                [styles.active]: sortCategory === index,
-                            })}
-                            onClick={() => onSelectItem(index)}
-                            key={`${name}_${index}`}
-                        >
-                            {name}</li>
-                    ))
-                }
-            </ul>
-        </div>
-    );
+  }
+
+  return (
+    <div className={styles.categories}>
+      <ul>
+        <li
+          className={cn({
+            [styles.active]: sortCategory === 'all',
+          })}
+          onClick={() => onSelectItem('all')}
+        >Все</li>
+        {
+          items && items.map((name, index) => (
+            <li
+              className={cn({
+                [styles.active]: sortCategory === index,
+              })}
+              onClick={() => onSelectItem(index)}
+              key={`${name}_${index}`}
+            >
+              {name}</li>
+          ))
+        }
+      </ul>
+    </div>
+  );
 });
 
 Categories.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.string),
-    onSelectCategory: PropTypes.func,
-    sortCategory: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  items: PropTypes.arrayOf(PropTypes.string),
+  onSelectCategory: PropTypes.func,
+  sortCategory: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
 export default Categories;
