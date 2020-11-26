@@ -3,12 +3,12 @@ import cn from 'classnames';
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-
-import styles from './PizzaBlock.module.scss';
 import { Button } from '@components';
-import { availableTypes, availableSizes } from "@utils/addInfo";
+import { availableTypes, availableSizes } from "@shared/addInfo";
 import { getCountItemById } from "@utils/utils";
 import { getCountItemByIdSelector } from "@redux/selectors";
+
+import styles from './PizzaBlock.module.scss';
 
 const PizzaBlock = ({ id, name, types, imageUrl, sizes, price, onAddItem }) => {
   const [selectedType, setSelectedType] = React.useState(types[0]);
@@ -22,7 +22,6 @@ const PizzaBlock = ({ id, name, types, imageUrl, sizes, price, onAddItem }) => {
   //     memoGetCountItemByIdSelector(state, id)
   // );
   const countPizza = useSelector(({ cartReducer }) => getCountItemById(cartReducer.items[id]));
-  console.log(countPizza);
 
   const handleAddItem = () => {
     const objPizza = {
@@ -63,12 +62,12 @@ const PizzaBlock = ({ id, name, types, imageUrl, sizes, price, onAddItem }) => {
   return (
     <div className={styles.pizzaBlock}>
       <img
-        className={styles.pizzaBlockImage}
+        className={styles.image}
         src={imageUrl}
         alt='pizza'
       />
-      <h4 className={styles.pizzaBlockTitle}>{name}</h4>
-      <div className={styles.pizzaBlockSelector}>
+      <h4 className={styles.title}>{name}</h4>
+      <div className={styles.selector}>
         <ul>
           {selectTypeOfItem(availableTypes, selectedType, types, setSelectedType, true)}
         </ul>
@@ -76,8 +75,8 @@ const PizzaBlock = ({ id, name, types, imageUrl, sizes, price, onAddItem }) => {
           {selectTypeOfItem(availableSizes, selectedSize, sizes, setSelectedSize, false)}
         </ul>
       </div>
-      <div className={styles.pizzaBlockBottom}>
-        <div className={styles.pizzaBlockPrice}>от {pricePizza} ₽</div>
+      <div className={styles.bottom}>
+        <div className={styles.price}>от {pricePizza} ₽</div>
         <Button className={'buttonAdd'} outline onClick={handleAddItem}>
           <svg
             width='12'

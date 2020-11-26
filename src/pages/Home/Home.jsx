@@ -1,13 +1,16 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { useUrlSearchParams } from "use-url-search-params";
+import { useDispatch, useSelector } from 'react-redux';
+import { useUrlSearchParams } from 'use-url-search-params';
 
-import { Categories, SortPopup, PizzaBlock, PizzaLoader } from './../../components';
-import { setCategory, setSortBy } from "./../../redux/actions/filter";
-import { fetchPizzas } from "./../../redux/thunks/pizza";
-import { addItem } from "./../../redux/actions/cart";
+import { Categories, SortPopup, PizzaBlock } from '@components';
+import { PizzaLoader } from '@shared/loaders';
+import { setCategory, setSortBy } from '@redux/filter/actions';
+import { fetchPizzas } from '@redux/pizza/operations';
+import { addItem } from '@redux/cart/actions';
 
-import { categoriesNames, sortNames } from "./../../utils/addInfo";
+import { categoriesNames, sortNames } from '@shared/addInfo';
+
+import styles from './Home.module.scss';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -64,8 +67,8 @@ const Home = () => {
   }
 
   return (
-    <div className='container'>
-      <div className='content__top'>
+    <div className={styles.container}>
+      <div className={styles.top}>
         <Categories
           onSelectCategory={onSelectCategory}
           items={categoriesNames}
@@ -77,8 +80,8 @@ const Home = () => {
           sortBy={sortBy}
         />
       </div>
-      <h2 className='content__title'>Все пиццы</h2>
-      <div className='content__items'>
+      <h2 className={styles.title}>Все пиццы</h2>
+      <div className={styles.items}>
         {
           !isLoading ? pizzas.map((pizza, idx) => (
             <PizzaBlock

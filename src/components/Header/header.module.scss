@@ -5,6 +5,8 @@
   padding: 40px 0;
 
   .container {
+    width: $container-width;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -13,23 +15,7 @@
     }
   }
 
-  &Cart {
-    &Delimiter {
-      width: 1px;
-      height: 25px;
-      background-color: rgba(255, 255, 255, 0.25);
-      margin-left: 14px;
-      margin-right: 14px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    &Cart {
-      //   margin-top: 30px;
-    }
-  }
-
-  &Logo {
+  .logo {
     display: flex;
 
     img {

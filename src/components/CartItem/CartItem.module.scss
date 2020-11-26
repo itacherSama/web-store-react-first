@@ -12,7 +12,7 @@
     position: relative;
   }
 
-  &Img {
+  .blockImg {
     display: flex;
     align-items: center;
     margin-right: 15px;
@@ -24,7 +24,7 @@
       order: 1;
     }
 
-    img {
+    .itemImg {
       width: 80px;
       height: 80px;
 
@@ -35,7 +35,7 @@
     }
   }
 
-  &Info {
+  .info {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,7 +73,7 @@
     }
   }
 
-  &Count {
+  .count {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -88,7 +88,7 @@
       width: 130px;
       margin: 10px 0;
 
-      .button {
+      button {
         width: 40px;
         height: 40px;
 
@@ -112,7 +112,7 @@
     }
   }
 
-  &Price {
+  .price {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -136,7 +136,7 @@
     }
   }
 
-  &Remove {
+  .remove {
     display: flex;
     align-items: center;
     justify-content: flex-end;

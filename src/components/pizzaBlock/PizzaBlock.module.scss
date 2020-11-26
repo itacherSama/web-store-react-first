@@ -17,18 +17,18 @@
     }
   }
 
-  &Image {
+  .image {
     width: 260px;
   }
 
-  &Title {
+  .title {
     font-size: 20px;
     font-weight: 900;
     letter-spacing: 1%;
     margin-bottom: 20px;
   }
 
-  &Selector {
+  .selector {
     display: flex;
     background-color: #f3f3f3;
     border-radius: 10px;
@@ -64,14 +64,14 @@
     }
   }
 
-  &Bottom {
+  .bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
   }
 
-  &Price {
+  .price {
     font-weight: bold;
     font-size: 22px;
     line-height: 27px;

@@ -8,7 +8,6 @@ const Categories = React.memo(({ items, onSelectCategory, sortCategory }) => {
 
   const onSelectItem = (index) => {
     onSelectCategory(index);
-
   }
 
   return (

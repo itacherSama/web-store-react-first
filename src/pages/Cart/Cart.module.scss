@@ -1,39 +1,38 @@
 @import "variables";
 
 .container {
-  &Сart {
-    max-width: 820px;
-    margin: 30px auto;
-    .content__title {
-      margin: 0;
-    }
+  width: $container-width;
+  max-width: 820px;
+  margin: 30px auto;
+  .title {
+    margin: 0;
+  }
 
-    @media (max-width: 768px) {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
+  @media (max-width: 768px) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 
-    .content__items {
-      grid-template-columns: 1fr;
-    }
+  .items {
+    grid-template-columns: 1fr;
   }
 }
 
 .cart {
-  &Top {
+  .top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     @media (max-width: 768px) {
       flex-direction: column;
 
-      .contentTitle {
+      .title {
         margin-bottom: 20px;
       }
     }
   }
 
-  .contentTitle {
+  .title {
     display: flex;
     align-items: center;
     font-size: 32px;
@@ -81,10 +80,10 @@
     }
   }
 
-  &Bottom {
+  .bottom {
     margin: 50px 0;
 
-    &Details {
+    .details {
       display: flex;
       justify-content: space-between;
 
@@ -99,7 +98,7 @@
       }
     }
 
-    &Buttons {
+    .buttons {
       display: flex;
       justify-content: space-between;
       margin-top: 40px;
@@ -107,7 +106,7 @@
       @media (max-width: 500px) {
         flex-direction: column;
 
-        .button {
+        button {
           margin-bottom: 20px;
           width: 100%;
           height: 54px;

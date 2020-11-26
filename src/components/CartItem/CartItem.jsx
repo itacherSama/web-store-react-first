@@ -2,9 +2,9 @@ import React from "react";
 import cn from 'classnames';
 import PropTypes from "prop-types";
 
-import styles from './CartItem.module.scss';
 import { Button } from '@components';
 
+import styles from './CartItem.module.scss';
 
 const CartItem = React.memo(({ itemBlock, onDecrementItem, onIncrementItem, onDeleteItem }) => {
   const { item, totalItems, totalPrice } = itemBlock;
@@ -23,19 +23,19 @@ const CartItem = React.memo(({ itemBlock, onDecrementItem, onIncrementItem, onDe
 
   return (
     <div className={styles.cartItem}>
-      <div className={styles.cartItemImg}>
+      <div className={styles.blockImg}>
         <img
-          className={styles.pizzaBlockImage}
+          className={styles.itemImg}
           src={item.imageUrl}
           alt={item.name}
         />
       </div>
-      <div className={styles.cartItemInfo}>
+      <div className={styles.info}>
         <h3>{item.name}</h3>
         <p>{item.type} тесто, {item.size} см.</p>
       </div>
-      <div className={styles.cartItemCount}>
-        <Button outline className={cn('buttonCircle', styles.cartItemCountMinus)} onClick={handleDecrementItem}>
+      <div className={styles.count}>
+        <Button outline className={cn('buttonCircle', styles.countMinus)} onClick={handleDecrementItem}>
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
             xmlns="http://www.w3.org/2000/svg">
 
@@ -49,7 +49,7 @@ const CartItem = React.memo(({ itemBlock, onDecrementItem, onIncrementItem, onDe
 
         </Button>
         <b>{totalItems}</b>
-        <Button outline className={cn('buttonCircle', styles.cartItemCountPlus)} onClick={handleIncrementItem}>
+        <Button outline className={cn('buttonCircle', styles.countPlus)} onClick={handleIncrementItem}>
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path
@@ -62,10 +62,10 @@ const CartItem = React.memo(({ itemBlock, onDecrementItem, onIncrementItem, onDe
 
         </Button>
       </div>
-      <div className={styles.cartItemPrice}>
+      <div className={styles.price}>
         <b>{totalPrice} ₽</b>
       </div>
-      <div className={styles.cartItemRemove}>
+      <div className={styles.remove}>
         <Button outline className={cn('buttonCircle', 'buttonRemove')} onClick={handleDeleteItem}>
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
             xmlns="http://www.w3.org/2000/svg">
