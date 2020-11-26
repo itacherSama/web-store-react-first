@@ -1,116 +1,143 @@
 export const performOpItem = (items = [], item, operation) => {
-    const isFindedElement = hasItemInArray(items, item);
+  const isFindedElement = hasItemInArray(items, item);
 
-    if (isFindedElement) {
-        return incOrDeсItem(items, item, operation);
-    } else {
-        return addItem(items, item);
-    }
+  if (isFindedElement) {
+    return calcItem(items, item, operation);
+  } else {
+    return addItem(items, item);
+  }
 }
 
 export const hasItemInArray = (array, item) => {
-    const res = findIndexInArray(array, item);
-    return res !== -1;
+  const res = findIndexInArray(array, item);
+  return res !== -1;
 }
 
 const findIndexInArray = (array, item) => {
-    return array.findIndex((arrayFromBlock) => {
-        return Object.keys(item).every(key => item[key] === arrayFromBlock.item[key]);
-    });
+  const keysOfItem = Object.keys(item);
+
+  const idx = array.findIndex((arrayFromBlock) => {
+    const areEqual = comparisonObjByKeys(keysOfItem, item, arrayFromBlock.item);
+    return areEqual;
+  });
+
+  return idx;
 }
 
+const comparisonObjByKeys = (keys, firstObj, secondObj) => {
+  const areEqual = keys.every(key => firstObj[key] === secondObj[key]);
+  return areEqual;
+}
 
-export const incOrDeсItem = (array, item, operation = '+') => {
-    const newArr = copyFullArrayWithObj(array);
-    newArr.some((arrayFromBlock) => {
-        const isHasPizzaInState = Object.keys(item).every(key => item[key] === arrayFromBlock.item[key]);
-        if (isHasPizzaInState) {
-            if (operation === '+') {
-                arrayFromBlock.totalItems += 1;
-                arrayFromBlock.totalPrice += item.price;
-            } else if (operation === '-' && arrayFromBlock.totalItems > 1) {
-                arrayFromBlock.totalItems -= 1;
-                arrayFromBlock.totalPrice -= item.price;
-            }
+export const calcItem = (array, item, operation) => {
+  const newArr = copyFullArrayWithObj(array);
+  const idxItem = findIndexInArray(newArr, item);
 
-        }
-        return isHasPizzaInState;
-    });
-    return newArr;
+  if (idxItem !== -1) {
+    const currentItem = newArr[idxItem];
+    const { totalItems, totalPrice } = currentItem;
+
+    if (operation === '+') {
+      newArr[idxItem] = {
+        ...currentItem,
+        totalItems: totalItems + 1,
+        totalPrice: totalPrice + item.price
+      }
+    } else if (operation === '-' && currentItem.totalItems > 1) {
+      newArr[idxItem] = {
+        ...currentItem,
+        totalItems: totalItems - 1,
+        totalPrice: totalPrice - item.price
+      }
+    }
+
+  }
+
+  return newArr;
 }
 
 export const copyFullArrayWithObj = (arr) => {
-    return arr.map(el => ({ ...el }));
+  const copiedArrOfObj = arr.map(el => ({ ...el }));
+
+  return copiedArrOfObj;
 }
 
 export const addItem = (arr, item) => {
-    return [
-        ...arr,
-        {
-            item: item,
-            totalItems: 1,
-            totalPrice: item.price
-        }
-    ]
+  const upgradedItem = [
+    ...arr,
+    {
+      item: item,
+      totalItems: 1,
+      totalPrice: item.price
+    }
+  ];
+
+  return upgradedItem;
 }
 
 export const deleteItem = (arr, item) => {
-    const idx = findIndexInArray(arr, item);
-    return arr.filter((el, index) => {
-        return idx !== index;
-    });
+  const idx = findIndexInArray(arr, item);
+  const filteredArray = arr.filter((el, index) => {
+    return idx !== index;
+  });
+
+  return filteredArray;
 }
 
 export const findTotalByProps = (items, findProps) => {
-    const isArray = Array.isArray(findProps);
+  const isArray = Array.isArray(findProps);
 
-    if (isArray) {
-        return findProps.map((el) => {
-            return findTotalByProps(items, el);
-        });
-    }
+  if (isArray) {
+    const resultsByProps = findProps.map((el) => {
+      const resultByProp = findTotalByProps(items, el);
+      return resultByProp;
+    });
 
-    return Object.values(items).reduce((sumById, pizzasById) => {
-        const sumPizzasById = Object.values(pizzasById).reduce((sum, pizzasByTypes) => {
-            return sum + pizzasByTypes[findProps];
-        }, 0);
-        return sumById + sumPizzasById;
+    return resultsByProps;
+  }
+
+  const arraysByIdPizza = Object.values(items);
+  const totalSum = arraysByIdPizza.reduce((sumById, pizzasById) => {
+    const arrayByTypesPizza = Object.values(pizzasById);
+    const sumPizzasById = arrayByTypesPizza.reduce((sum, pizzasByTypes) => {
+      const result = sum + pizzasByTypes[findProps];
+      return result;
     }, 0);
+
+    return sumById + sumPizzasById;
+  }, 0);
+
+  return totalSum;
 }
 
-export const createArrayWithObjsByProperty = (Obj, prop) => {
-    let newArr = [];
+export const createArrayWithObjsByProperty = (obj, prop) => {
+  const arrWithObjsByProperty = [];
 
-    const checkPropertyInObj = (Obj, prop) => {
-        const firstItemInObj = Obj[(Object.keys(Obj)[0])];
-        let res = firstItemInObj.hasOwnProperty(prop) ? Obj : false;
-        return res;
+  const findObjByProp = (object, prop) => {
+    const hasPropertyInObj = object.hasOwnProperty(prop);
+
+    if (hasPropertyInObj) {
+      arrWithObjsByProperty.push(object);
+    } else {
+      for (const elem in object) {
+        findObjByProp(object[elem], prop);
+      }
     }
+  }
 
-    const findObjByProp = (Obj, prop) => {
+  findObjByProp(obj, prop);
 
-        let res = checkPropertyInObj(Obj, prop);
-        if (!!res) {
-            newArr.push(...res);
-        }
-        if (!res) {
-            for (let elem in Obj) {
-                findObjByProp(Obj[elem], prop);;
-            }
-        }
-    }
-    try {
-        findObjByProp(Obj, prop);
-    } catch (error) {
-        return newArr;
-    }
-
-    return newArr;
+  return arrWithObjsByProperty;
 }
 
-export function getCountItemById(item) {
-    if (!Array.isArray(item)) return false;
-    return item.reduce((prev, cur) => {
-        return prev + cur.totalItems;
-    }, 0);
+export const getCountItemById = (item) => {
+  if (!Array.isArray(item)) return false;
+
+  const countItemById = item.reduce((prev, cur) => {
+    const result = prev + cur.totalItems;
+
+    return result;
+  }, 0);
+
+  return countItemById;
 }

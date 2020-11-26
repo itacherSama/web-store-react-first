@@ -140,7 +140,8 @@
     align-items: center;
     justify-content: center;
     width: 210px;
-
+    font-size: 16px;
+    padding: 16px;
     border-color: darken($color: $gray-line, $amount: 10);
 
     span {
@@ -156,6 +157,12 @@
       span {
         color: $gray-line;
       }
+
+      svg {
+        path {
+          fill: transparent;
+        }
+      }
     }
 
     svg {
@@ -169,9 +176,9 @@
 
   &Pay {
     font-size: 16px;
+    padding: 16px;
     font-weight: 600;
     width: 210px;
-    padding: 16px;
   }
 
   &Remove {

@@ -4,6 +4,7 @@ export const addItem = (objItem) => ({
   type: actionTypes.ADD_PIZZA,
   payload: {
     item: objItem,
+    operation: '+'
   }
 });
 
