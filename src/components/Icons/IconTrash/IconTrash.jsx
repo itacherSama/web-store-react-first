@@ -1,8 +1,12 @@
 import React from 'react';
 
 
-const IconCart = (props) => {
-  const fill = props.fill || 'none';
+const IconTrash = (props) => {
+/*   const fill = props.fill || 'none';
+  const height = props.height || '18px';
+  const width = props.width || '18px';
+  const stroke = props.stroke || 'white';
+  const strokeWidth = props.strokeWidth || '1.8'; */
 
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,8 +16,7 @@ const IconCart = (props) => {
       <path d="M11.6666 9.16667V14.1667" stroke="#B6B6B6" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
 
-
   )
 }
 
-export default IconCart;
+export default IconTrash;
