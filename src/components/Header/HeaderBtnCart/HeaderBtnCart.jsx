@@ -8,7 +8,7 @@ import styles from './HeaderBtnCart.module.scss';
 const HeaderBtnCart = ({ totalPrice, totalItems }) => {
   return (
     <div className={styles.cart}>
-      <Link to={'/cart'}>
+      <Link to='/cart'>
         <Button className={'buttonCart'}>
           <span>{totalPrice} ₽</span>
           <div className={styles.cartDelimiter}></div>
