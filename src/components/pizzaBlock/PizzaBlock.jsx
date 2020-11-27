@@ -4,24 +4,19 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 import { Button } from '@components';
+import PizzaSelector from './PizzaSelector';
 import { availableTypes, availableSizes } from "@shared/addInfo";
 import { getCountItemById } from "@utils/utils";
-import { getCountItemByIdSelector } from "@redux/selectors";
-
 import styles from './PizzaBlock.module.scss';
 
 const PizzaBlock = ({ id, name, types, imageUrl, sizes, price, onAddItem }) => {
   const [selectedType, setSelectedType] = React.useState(types[0]);
   const [selectedSize, setSelectedSize] = React.useState(sizes[0]);
-  const pricePizza = price[availableSizes.indexOf(selectedSize)];
-  // const memoGetCountItemByIdSelector = React.useMemo(
-  //     getCountItemByIdSelector,
-  //     []
-  // );
-  // const countPizza = useSelector(state => 
-  //     memoGetCountItemByIdSelector(state, id)
-  // );
   const countPizza = useSelector(({ cartReducer }) => getCountItemById(cartReducer.items[id]));
+  const pricePizza = price[availableSizes.indexOf(selectedSize)];
+
+  const availableSizesWithText = availableSizes.map(el => `${el} см.`);
+
 
   const handleAddItem = () => {
     const objPizza = {
@@ -35,30 +30,6 @@ const PizzaBlock = ({ id, name, types, imageUrl, sizes, price, onAddItem }) => {
     onAddItem(objPizza);
   }
 
-
-  const selectTypeOfItem = (items, selectedItem, availableTypes, changeTypeFunc, idx) => {
-    return (
-      items.map((type, index) => (
-        <li
-          className={cn({
-            [styles.active]:
-              (idx && selectedItem === index)
-              ||
-              (!idx && selectedItem === availableTypes[index]),
-            [styles.disabled]:
-              (idx && !availableTypes.includes(index))
-              ||
-              (!idx && !availableTypes.includes(availableTypes[index])),
-          })}
-          onClick={() => {
-            if (idx) changeTypeFunc(index)
-            else changeTypeFunc(availableTypes[index])
-          }}
-          key={type}
-        > {type} </li>
-      )));
-  }
-
   return (
     <div className={styles.pizzaBlock}>
       <img
@@ -68,12 +39,21 @@ const PizzaBlock = ({ id, name, types, imageUrl, sizes, price, onAddItem }) => {
       />
       <h4 className={styles.title}>{name}</h4>
       <div className={styles.selector}>
-        <ul>
-          {selectTypeOfItem(availableTypes, selectedType, types, setSelectedType, true)}
-        </ul>
-        <ul>
-          {selectTypeOfItem(availableSizes, selectedSize, sizes, setSelectedSize, false)}
-        </ul>
+        <PizzaSelector 
+          availableTypes={availableTypes}
+          selectedItem={selectedType}
+          activeTypes={types}
+          onChangeType={setSelectedType}
+          view={'types'}
+
+        />
+        <PizzaSelector 
+          availableTypes={availableSizesWithText}
+          selectedItem={selectedSize}
+          activeTypes={sizes}
+          onChangeType={setSelectedSize}
+          view={'sizes'}
+        />
       </div>
       <div className={styles.bottom}>
         <div className={styles.price}>от {pricePizza} ₽</div>
