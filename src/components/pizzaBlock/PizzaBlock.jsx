@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 import { Button } from '@components';
-import PizzaSelector from './PizzaSelector';
+import PizzaBlockSelector from './PizzaBlockSelector';
 import { availableTypes, availableSizes } from "@shared/addInfo";
 import { getCountItemById } from "@utils/utils";
 import styles from './PizzaBlock.module.scss';
@@ -39,7 +39,7 @@ const PizzaBlock = ({ id, name, types, imageUrl, sizes, price, onAddItem }) => {
       />
       <h4 className={styles.title}>{name}</h4>
       <div className={styles.selector}>
-        <PizzaSelector 
+        <PizzaBlockSelector 
           availableTypes={availableTypes}
           selectedItem={selectedType}
           activeTypes={types}
@@ -47,7 +47,7 @@ const PizzaBlock = ({ id, name, types, imageUrl, sizes, price, onAddItem }) => {
           view={'types'}
 
         />
-        <PizzaSelector 
+        <PizzaBlockSelector 
           availableTypes={availableSizesWithText}
           selectedItem={selectedSize}
           activeTypes={sizes}

@@ -2,9 +2,9 @@ import React from 'react';
 import cn from 'classnames';
 // import PropTypes from "prop-types";
 
-import styles from './PizzaSelector.module.scss';
+import styles from './PizzaBlockSelector.module.scss';
 
-const PizzaSelector = React.memo(({ availableTypes, selectedItem, activeTypes, onChangeType, view }) => {
+const PizzaBlockSelector = React.memo(({ availableTypes, selectedItem, activeTypes, onChangeType, view }) => {
 
   const generateValueByView = (index) => {
     switch(view) {
@@ -36,4 +36,4 @@ const PizzaSelector = React.memo(({ availableTypes, selectedItem, activeTypes, o
     )
 });
 
-export default PizzaSelector;
+export default PizzaBlockSelector;
