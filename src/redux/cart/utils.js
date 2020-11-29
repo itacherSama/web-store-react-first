@@ -1,4 +1,4 @@
-import { performOpItem, findTotalByProps, deleteItem } from '@utils/utils';
+import { performOpItem, findTotalByProps, deleteItem, saveDataInLocalStorage, getDataOutLocalStorage } from '@utils/utils';
 
 export const performOperationsOnElement = (state, action) => {
   const { item, operation } = action.payload;
@@ -11,6 +11,8 @@ export const performOperationsOnElement = (state, action) => {
     }
   }
   const [totalPrice, totalItems] = findTotalByProps(newState.items, ['totalPrice', 'totalItems']);
+  saveDataInLocalStorage(newState.items, 'pizzas');
+
   return {
     ...newState,
     totalItems,
@@ -35,9 +37,38 @@ export const deletePizza = (state, action) => {
   }
 
   const [totalPrice, totalItems] = findTotalByProps(newState.items, ['totalPrice', 'totalItems']);
+  saveDataInLocalStorage(newState.items, 'pizzas');
+
   return {
     ...newState,
     totalItems,
     totalPrice
   }
+}
+
+export const clearCart = () => {
+  const newState = {
+    items: {},
+    totalPrice: 0,
+    totalItems: 0
+  }
+  saveDataInLocalStorage(newState.items, 'pizzas');
+  return newState;
+}
+
+export const getLocalDataCart = (state, action) => {
+  const { key } = action.payload;
+  const itemsPizza = getDataOutLocalStorage(key);
+  if (itemsPizza) {
+    const [totalPrice, totalItems] = findTotalByProps(itemsPizza, ['totalPrice', 'totalItems']);
+
+    const newState = {
+      ...state,
+      items: itemsPizza,
+      totalPrice,
+      totalItems
+    }
+    return newState;
+  }
+  return state;
 }

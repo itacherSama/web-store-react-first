@@ -141,3 +141,14 @@ export const getCountItemById = (item) => {
 
   return countItemById;
 }
+
+export const saveDataInLocalStorage = (data, key) => {
+  const stringData = JSON.stringify(data);
+  localStorage.setItem(key, stringData);
+}
+
+export const getDataOutLocalStorage = (key) => {
+  const itemByKey = localStorage.getItem(key);
+  const data = JSON.parse(itemByKey);
+  return data;
+}

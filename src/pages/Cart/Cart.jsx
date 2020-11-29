@@ -8,7 +8,7 @@ import IconCart from '@components/Icons/IconCart';
 import IconTrash from '@components/Icons/IconTrash';
 import IconArrowLeft from '@components/Icons/IconArrowLeft';
 
-import { createItemsForCartSelector } from '@redux/selectors';
+import { createItemsForCartSelector } from '@redux/cart/selectors';
 import CartEmpty from './CartEmpty';
 
 import styles from './Cart.module.scss';
