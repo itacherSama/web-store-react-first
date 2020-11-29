@@ -6,21 +6,31 @@ const initialState = {
 };
 
 const pizzaReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case actionTypes.SET_PIZZAS:
+
+  const functionsReducer = {
+    [actionTypes.SET_PIZZAS]: () => {
       return {
         ...state,
         items: action.payload.items,
         isLoading: action.payload.isLoading
       }
-    case actionTypes.SET_LOADING:
+    },
+    [actionTypes.SET_LOADING]: () => {
       return {
         ...state,
         isLoading: action.payload
       }
-    default:
-      return state;
+    }
   }
+
+  const checkProperty = functionsReducer.hasOwnProperty(action.type);
+
+  if (checkProperty) {
+    const newState = functionsReducer[action.type]();
+    return newState;
+  }
+
+  return state;
 }
 
 export default pizzaReducer;

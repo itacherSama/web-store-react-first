@@ -1,5 +1,6 @@
 import actionTypes from './types';
-import { performOpItem, findTotalByProps, deleteItem } from '@utils/utils';
+
+import { deletePizza, performOperationsOnElement } from './utils';
 
 const pizzas = {
   '3': [
@@ -52,58 +53,28 @@ const initialState = {
 };
 
 const cartReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case actionTypes.INCREMENT_PIZZA:
-    case actionTypes.DECREMENT_PIZZA:
-    case actionTypes.ADD_PIZZA: {
-      const { item, operation } = action.payload;
-      const newItems = performOpItem(state.items[item.id], item, operation);
-      const newState = {
-        ...state,
-        items: {
-          ...state.items,
-          [item.id]: newItems
-        }
-      }
-      const [totalPrice, totalItems] = findTotalByProps(newState.items, ['totalPrice', 'totalItems']);
-      return {
-        ...newState,
-        totalItems,
-        totalPrice
-      }
-    }
-    case actionTypes.DELETE_PIZZA: {
-      const { item } = action.payload;
-
-      const newItems = deleteItem(state.items[item.id], item);
-      const newState = {
-        ...state,
-        items: {
-          ...state.items,
-          [item.id]: newItems
-        }
-      }
-
-      if (!newItems.length) {
-        delete newState.items[item.id];
-      }
-
-      const [totalPrice, totalItems] = findTotalByProps(newState.items, ['totalPrice', 'totalItems']);
-      return {
-        ...newState,
-        totalItems,
-        totalPrice
-      }
-    }
-    case actionTypes.CLEAR_CART:
+  const functionsReducer = {
+    [actionTypes.ADD_PIZZA]: () => performOperationsOnElement(state, action),
+    [actionTypes.INCREMENT_PIZZA]: () => performOperationsOnElement(state, action),
+    [actionTypes.DECREMENT_PIZZA]: () => performOperationsOnElement(state, action),
+    [actionTypes.DELETE_PIZZA]: () => deletePizza(state, action),
+    [actionTypes.CLEAR_CART]: () => {
       return {
         items: {},
         totalPrice: 0,
         totalItems: 0
       }
-    default:
-      return state;
+    }
+
   }
+  const checkProperty = functionsReducer.hasOwnProperty(action.type);
+
+  if (checkProperty) {
+    const newState = functionsReducer[action.type]();
+    return newState;
+  }
+
+  return state;
 }
 
 export default cartReducer;
