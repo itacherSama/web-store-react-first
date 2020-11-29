@@ -2,11 +2,13 @@ import React from 'react';
 
 
 const IconTrash = (props) => {
-/*   const fill = props.fill || 'none';
-  const height = props.height || '18px';
-  const width = props.width || '18px';
-  const stroke = props.stroke || 'white';
-  const strokeWidth = props.strokeWidth || '1.8'; */
+  /*   const fill = props.fill || 'none';
+    const height = props.height || '18px';
+    const width = props.width || '18px';
+    const stroke = props.stroke || 'white';
+    const strokeWidth = props.strokeWidth || '1.8'; */
+
+  // стили настраиваются через scss (css)
 
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
