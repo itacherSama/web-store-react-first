@@ -42,4 +42,6 @@ Categories.propTypes = {
   sortCategory: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
+Categories.displayName = 'Categories';
+
 export default Categories;

@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Button } from '@components';
 import { IconRemove, IconMinus, IconPlus } from '@components/Icons';
@@ -11,15 +11,15 @@ const CartItem = React.memo(({ itemBlock, onDecrementItem, onIncrementItem, onDe
 
   const handleIncrementItem = () => {
     onIncrementItem(item);
-  }
+  };
 
   const handleDecrementItem = () => {
     onDecrementItem(item);
-  }
+  };
 
   const handleDeleteItem = () => {
     onDeleteItem(item);
-  }
+  };
 
   return (
     <div className={styles.cartItem}>
@@ -58,9 +58,8 @@ const CartItem = React.memo(({ itemBlock, onDecrementItem, onIncrementItem, onDe
       </div>
     </div>
 
-  )
-}
-)
+  );
+})
 
 CartItem.propTypes = {
   itemBlock: PropTypes.object,
@@ -68,5 +67,7 @@ CartItem.propTypes = {
   onIncrementItem: PropTypes.func,
   onDeleteItem: PropTypes.func
 };
+
+CartItem.displayName = 'CartItem';
 
 export default CartItem;

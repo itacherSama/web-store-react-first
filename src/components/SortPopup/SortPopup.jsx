@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 import styles from './SortPopup.module.scss';
 
@@ -9,21 +9,20 @@ const SortPopup = React.memo(({ items, onSelectBySort, sortBy }) => {
   const sortPopupItem = React.useRef();
   const sortByName = items.find((obj) => obj.type === sortBy.type).name;
 
-
   const toggleVisiblePopup = () => {
     setVisiblePopup(!visiblePopup);
-  }
+  };
 
   const onSelectItem = (index) => {
     onSelectBySort(index);
-  }
+  };
 
-  const hideVisiblePopup = e => {
+  const hideVisiblePopup = (e) => {
     const checkedItem = e.path.includes(sortPopupItem.current);
     if (!checkedItem) {
       setVisiblePopup(false);
     }
-  }
+  };
 
   React.useEffect(() => {
     window.addEventListener('click', hideVisiblePopup);
@@ -31,13 +30,12 @@ const SortPopup = React.memo(({ items, onSelectBySort, sortBy }) => {
     return window.removeEventListener('click', hideVisiblePopup);
   }, []);
 
-
-
   return (
     <div
       ref={sortPopupItem}
       onClick={toggleVisiblePopup}
-      className={styles.sort}>
+      className={styles.sort}
+    >
       <div className={styles.sortLabel}>
         <svg
           className={visiblePopup ? styles.rotated : ''}
@@ -55,28 +53,34 @@ const SortPopup = React.memo(({ items, onSelectBySort, sortBy }) => {
         <b>сортировка по:</b>
         <span>{sortByName}</span>
       </div>
-      {visiblePopup && <div className={styles.sortPopup}>
-        <ul>
-          {items && items.map((item, index) => (
-            <li
-              className={cn({
-                [styles.active]: sortBy.type === items[index].type
-              })}
-              onClick={() => onSelectItem(index)}
-              key={`${item.type}_${index}`}>
-              {item.name}</li>
-          ))}
-        </ul>
-      </div>}
+      {visiblePopup && (
+        <div className={styles.sortPopup}>
+          <ul>
+            {items && items.map((item, index) => (
+              <li
+                className={cn({
+                  [styles.active]: sortBy.type === items[index].type,
+                })}
+                onClick={() => onSelectItem(index)}
+                key={`${item.type}_${index}`}
+              >
+                {item.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
 
-  )
-})
+  );
+});
 
 SortPopup.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
   onSelectBySort: PropTypes.func,
-  sortBy: PropTypes.object
+  sortBy: PropTypes.object,
 };
+
+SortPopup.displayName = 'SortPopup';
 
 export default SortPopup;

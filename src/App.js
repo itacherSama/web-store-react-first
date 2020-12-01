@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Home, Cart, NotFound } from './pages';
-import { Header } from "./components";
+import { Header, MapYandex } from "./components";
 
 import { getLocalDataCart } from '@redux/cart/actions';
 
@@ -25,6 +25,9 @@ function App() {
           </Route>
           <Route path="/cart">
             <Cart />
+          </Route>
+          <Route path="/map">
+            <MapYandex />
           </Route>
 
           <Route>
