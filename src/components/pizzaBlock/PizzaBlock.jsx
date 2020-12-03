@@ -1,23 +1,26 @@
 import React from 'react';
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import { Button } from '@components';
+import { availableTypes, availableSizes } from '@shared/addInfo';
+import { getCountItemById } from '@utils/utils';
+import Icon from '@components/Icon';
+
+import plusSvg from '@assets/img/plus.svg';
 import PizzaBlockSelector from './PizzaBlockSelector';
-import { availableTypes, availableSizes } from "@shared/addInfo";
-import { getCountItemById } from "@utils/utils";
-import { IconPlus } from '@components/Icons';
 
 import styles from './PizzaBlock.module.scss';
 
-const PizzaBlock = ({ id, name, types, imageUrl, sizes, price, onAddItem }) => {
+const PizzaBlock = ({
+  id, name, types, imageUrl, sizes, price, onAddItem,
+}) => {
   const [selectedType, setSelectedType] = React.useState(types[0]);
   const [selectedSize, setSelectedSize] = React.useState(sizes[0]);
   const countPizza = useSelector(({ cartReducer }) => getCountItemById(cartReducer.items[id]));
   const pricePizza = price[availableSizes.indexOf(selectedSize)];
 
-  const availableSizesWithText = availableSizes.map(el => `${el} см.`);
-
+  const availableSizesWithText = availableSizes.map((el) => `${el} см.`);
 
   const handleAddItem = () => {
     const objPizza = {
@@ -26,47 +29,47 @@ const PizzaBlock = ({ id, name, types, imageUrl, sizes, price, onAddItem }) => {
       imageUrl,
       price: pricePizza,
       size: selectedSize,
-      type: availableTypes[selectedType]
+      type: availableTypes[selectedType],
     };
     onAddItem(objPizza);
-  }
+  };
 
   return (
-    <div className={styles.pizzaBlock}>
+    <div className={ styles.pizzaBlock }>
       <img
-        className={styles.image}
-        src={imageUrl}
         alt='pizza'
+        className={ styles.image }
+        src={ imageUrl }
       />
-      <h4 className={styles.title}>{name}</h4>
-      <div className={styles.selector}>
+      <h4 className={ styles.title }>{name}</h4>
+      <div className={ styles.selector }>
         <PizzaBlockSelector
-          availableTypes={availableTypes}
-          selectedItem={selectedType}
-          activeTypes={types}
-          onChangeType={setSelectedType}
-          view={'types'}
+          activeTypes={ types }
+          availableTypes={ availableTypes }
+          onChangeType={ setSelectedType }
+          selectedItem={ selectedType }
+          view={ 'types' }
 
         />
         <PizzaBlockSelector
-          availableTypes={availableSizesWithText}
-          selectedItem={selectedSize}
-          activeTypes={sizes}
-          onChangeType={setSelectedSize}
-          view={'sizes'}
+          activeTypes={ sizes }
+          availableTypes={ availableSizesWithText }
+          onChangeType={ setSelectedSize }
+          selectedItem={ selectedSize }
+          view={ 'sizes' }
         />
       </div>
-      <div className={styles.bottom}>
-        <div className={styles.price}>от {pricePizza} ₽</div>
-        <Button className={'buttonAdd'} outline onClick={handleAddItem}>
-          <IconPlus />
+      <div className={ styles.bottom }>
+        <div className={ styles.price }>от {pricePizza} ₽</div>
+        <Button className={ 'buttonAdd' } onClick={ handleAddItem } outline>
+          <Icon src={ plusSvg } />
           <span>Добавить</span>
           {countPizza && <i>{countPizza}</i>}
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 PizzaBlock.propTypes = {
   id: PropTypes.number,
@@ -75,7 +78,7 @@ PizzaBlock.propTypes = {
   sizes: PropTypes.arrayOf(PropTypes.number),
   imageUrl: PropTypes.string,
   price: PropTypes.arrayOf(PropTypes.number),
-  onAddItem: PropTypes.func
-}
+  onAddItem: PropTypes.func,
+};
 
 export default PizzaBlock;

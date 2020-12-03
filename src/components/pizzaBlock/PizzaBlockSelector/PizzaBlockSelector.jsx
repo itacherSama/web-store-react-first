@@ -4,36 +4,38 @@ import cn from 'classnames';
 
 import styles from './PizzaBlockSelector.module.scss';
 
-const PizzaBlockSelector = React.memo(({ availableTypes, selectedItem, activeTypes, onChangeType, view }) => {
-
+const PizzaBlockSelector = React.memo(({
+  availableTypes, selectedItem, activeTypes, onChangeType, view,
+}) => {
   const generateValueByView = (index) => {
-    switch(view) {
+    switch (view) {
       case 'types':
         return index;
 
       case 'sizes':
         return activeTypes[index];
     }
-  }
+  };
 
   return (
     <ul>
       { availableTypes.map((type, index) => {
         const value = generateValueByView(index);
-        
+
         return (
           <li
-            className={cn({
+            className={ cn({
               [styles.active]: selectedItem === value,
               [styles.disabled]: !activeTypes.includes(value),
-            })}
-            onClick={() => onChangeType(value) }
-            key={type}
+            }) }
+            key={ type }
+            onClick={ () => onChangeType(value) }
           > {type} </li>
-      )})
+        );
+      })
       }
     </ul>
-    )
+  );
 });
 
 export default PizzaBlockSelector;

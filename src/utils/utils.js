@@ -1,17 +1,7 @@
-export const performOpItem = (items = [], item, operation) => {
-  const isFindedElement = hasItemInArray(items, item);
-
-  if (isFindedElement) {
-    return calcItem(items, item, operation);
-  } else {
-    return addItem(items, item);
-  }
-}
-
-export const hasItemInArray = (array, item) => {
-  const res = findIndexInArray(array, item);
-  return res !== -1;
-}
+const comparisonObjByKeys = (keys, firstObj, secondObj) => {
+  const areEqual = keys.every((key) => firstObj[key] === secondObj[key]);
+  return areEqual;
+};
 
 const findIndexInArray = (array, item) => {
   const keysOfItem = Object.keys(item);
@@ -22,12 +12,18 @@ const findIndexInArray = (array, item) => {
   });
 
   return idx;
-}
+};
 
-const comparisonObjByKeys = (keys, firstObj, secondObj) => {
-  const areEqual = keys.every(key => firstObj[key] === secondObj[key]);
-  return areEqual;
-}
+export const hasItemInArray = (array, item) => {
+  const res = findIndexInArray(array, item);
+  return res !== -1;
+};
+
+export const copyFullArrayWithObj = (arr) => {
+  const copiedArrOfObj = arr.map((el) => ({ ...el }));
+
+  return copiedArrOfObj;
+};
 
 export const calcItem = (array, item, operation) => {
   const newArr = copyFullArrayWithObj(array);
@@ -41,48 +37,48 @@ export const calcItem = (array, item, operation) => {
       newArr[idxItem] = {
         ...currentItem,
         totalItems: totalItems + 1,
-        totalPrice: totalPrice + item.price
-      }
+        totalPrice: totalPrice + item.price,
+      };
     } else if (operation === '-' && currentItem.totalItems > 1) {
       newArr[idxItem] = {
         ...currentItem,
         totalItems: totalItems - 1,
-        totalPrice: totalPrice - item.price
-      }
+        totalPrice: totalPrice - item.price,
+      };
     }
-
   }
 
   return newArr;
-}
-
-export const copyFullArrayWithObj = (arr) => {
-  const copiedArrOfObj = arr.map(el => ({ ...el }));
-
-  return copiedArrOfObj;
-}
+};
 
 export const addItem = (arr, item) => {
   const upgradedItem = [
     ...arr,
     {
-      item: item,
+      item,
       totalItems: 1,
-      totalPrice: item.price
-    }
+      totalPrice: item.price,
+    },
   ];
 
   return upgradedItem;
-}
+};
 
 export const deleteItem = (arr, item) => {
   const idx = findIndexInArray(arr, item);
-  const filteredArray = arr.filter((el, index) => {
-    return idx !== index;
-  });
+  const filteredArray = arr.filter((el, index) => idx !== index);
 
   return filteredArray;
-}
+};
+
+export const performOpItem = (items = [], item, operation) => {
+  const isFindedElement = hasItemInArray(items, item);
+
+  if (isFindedElement) {
+    return calcItem(items, item, operation);
+  }
+  return addItem(items, item);
+};
 
 export const findTotalByProps = (items, findProps) => {
   const isArray = Array.isArray(findProps);
@@ -108,7 +104,7 @@ export const findTotalByProps = (items, findProps) => {
   }, 0);
 
   return totalSum;
-}
+};
 
 export const createArrayWithObjsByProperty = (obj, prop) => {
   const arrWithObjsByProperty = [];
@@ -119,16 +115,17 @@ export const createArrayWithObjsByProperty = (obj, prop) => {
     if (hasPropertyInObj) {
       arrWithObjsByProperty.push(object);
     } else {
-      for (const elem in object) {
+      const keysObject = Object.keys(object);
+      keysObject.forEach((elem) => {
         findObjByProp(object[elem], prop);
-      }
+      });
     }
-  }
+  };
 
   findObjByProp(obj, prop);
 
   return arrWithObjsByProperty;
-}
+};
 
 export const getCountItemById = (item) => {
   if (!Array.isArray(item)) return false;
@@ -140,15 +137,15 @@ export const getCountItemById = (item) => {
   }, 0);
 
   return countItemById;
-}
+};
 
 export const saveDataInLocalStorage = (data, key) => {
   const stringData = JSON.stringify(data);
   localStorage.setItem(key, stringData);
-}
+};
 
 export const getDataOutLocalStorage = (key) => {
   const itemByKey = localStorage.getItem(key);
   const data = JSON.parse(itemByKey);
   return data;
-}
+};

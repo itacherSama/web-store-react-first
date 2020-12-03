@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Button } from '@components';
-import { IconCart } from '@components/Icons';
+import Icon from '@components/Icon';
+import cartSvg from '@assets/img/cart.svg';
 
 import styles from './HeaderBtnCart.module.scss';
 
 const HeaderBtnCart = ({ totalPrice, totalItems }) => (
-  <div className={styles.cart}>
+  <div className={ styles.cart }>
     <Link to="/cart">
       <Button className="buttonCart">
         <span>
@@ -16,8 +17,8 @@ const HeaderBtnCart = ({ totalPrice, totalItems }) => (
           {' '}
           ₽
         </span>
-        <div className={styles.cartDelimiter} />
-        <IconCart fill="none" />
+        <div className={ styles.cartDelimiter } />
+        <Icon src={ cartSvg } />
         <span>{totalItems}</span>
       </Button>
     </Link>
@@ -25,8 +26,8 @@ const HeaderBtnCart = ({ totalPrice, totalItems }) => (
 );
 
 HeaderBtnCart.propTypes = {
-  totalPrice: PropTypes.Number,
-  totalItems: PropTypes.Number,
+  totalPrice: PropTypes.number,
+  totalItems: PropTypes.number,
 };
 
 export default HeaderBtnCart;

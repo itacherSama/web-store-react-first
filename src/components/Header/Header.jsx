@@ -2,8 +2,10 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import logoSvg from '@assets/img/pizza-logo.svg';
+import Icon from '@components/Icon';
 import { textForHeader } from '@shared/addInfo';
+import logoSvg from '@assets/img/pizza-logo.svg';
+
 import HeaderCartBtn from './HeaderBtnCart';
 import styles from './Header.module.scss';
 
@@ -17,10 +19,10 @@ const Header = React.memo(() => {
   }, [location]);
 
   return (
-    <div className={styles.header}>
-      <div className={styles.container}>
-        <div className={styles.logo}>
-          <img width="38" src={logoSvg} alt="Pizza logo" />
+    <div className={ styles.header }>
+      <div className={ styles.container }>
+        <div className={ styles.logo }>
+          {<Icon src={ logoSvg } />}
           <div>
             <h1>React Pizza</h1>
             <p>
@@ -29,7 +31,7 @@ const Header = React.memo(() => {
             </p>
           </div>
         </div>
-        {showHeaderCart && <HeaderCartBtn totalPrice={totalPrice} totalItems={totalItems} />}
+        {showHeaderCart && <HeaderCartBtn totalItems={ totalItems } totalPrice={ totalPrice } />}
       </div>
     </div>
   );

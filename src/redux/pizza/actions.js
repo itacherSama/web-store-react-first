@@ -4,11 +4,11 @@ export const setPizzas = (items) => ({
   type: actionTypes.SET_PIZZAS,
   payload: {
     items,
-    isLoading: false
-  }
+    isLoading: false,
+  },
 });
 
 export const setLoading = (val) => ({
   type: actionTypes.SET_LOADING,
-  payload: val
-})
+  payload: val,
+});

@@ -19,19 +19,18 @@ const Home = () => {
   const isLoading = useSelector(({ pizzaReducer }) => pizzaReducer.isLoading);
   const [params, setParams] = useUrlSearchParams({}, {
     category: String,
-    sort: String
+    sort: String,
   });
 
   React.useEffect(() => {
     let category;
     if (params.category) {
       const checkRes = parseInt(params.category);
-      category = isNaN(checkRes) ? params.category : checkRes;
+      category = Number.isNaN(checkRes) ? params.category : checkRes;
     } else {
       category = 'all';
     }
-    dispatch(setCategory(category))
-
+    dispatch(setCategory(category));
   }, [params.category]);
 
   React.useEffect(() => {
@@ -58,45 +57,45 @@ const Home = () => {
     const isNewSort = current !== sortBy.type;
     if (isNewSort) {
       onSetParams('sort', current);
-
     }
   }, [sortBy]);
 
   const onAddItem = (obj) => {
     dispatch(addItem(obj));
-  }
+  };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.top}>
+    <div className={ styles.container }>
+      <div className={ styles.top }>
         <Categories
-          onSelectCategory={onSelectCategory}
-          items={categoriesNames}
-          sortCategory={sortCategory}
+          items={ categoriesNames }
+          onSelectCategory={ onSelectCategory }
+          sortCategory={ sortCategory }
         />
         <SortPopup
-          items={sortNames}
-          onSelectBySort={onSelectBySort}
-          sortBy={sortBy}
+          items={ sortNames }
+          onSelectBySort={ onSelectBySort }
+          sortBy={ sortBy }
         />
       </div>
-      <h2 className={styles.title}>Все пиццы</h2>
-      <div className={styles.items}>
+      <h2 className={ styles.title }>Все пиццы</h2>
+      <div className={ styles.items }>
         {
-          !isLoading ? pizzas.map((pizza, idx) => (
+          !isLoading ? pizzas.map((pizza) => (
             <PizzaBlock
-              key={pizza.id}
-              {...pizza}
-              onAddItem={onAddItem
-              } />
+              key={ pizza.id }
+              { ...pizza }
+              onAddItem={ onAddItem
+              }
+            />
           )) : Array(10).fill(0).map((_, idx) => (
-            <PizzaLoader key={idx} />
+            <PizzaLoader key={ idx } />
           ))
         }
       </div>
     </div>
 
-  )
-}
+  );
+};
 
 export default Home;

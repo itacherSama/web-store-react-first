@@ -4,6 +4,7 @@
   width: 100%;
   text-align: center;
   margin-bottom: 65px;
+  animation: appearance 1s ease;
 
   @media (max-width: 1090px) {
     margin-bottom: 35px;
@@ -35,7 +36,7 @@
     flex-direction: column;
     padding: 6px;
   }
-  
+
   .bottom {
     display: flex;
     align-items: center;
@@ -48,5 +49,14 @@
     font-size: 22px;
     line-height: 27px;
     letter-spacing: 0.015em;
+  }
+}
+
+@keyframes appearance {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

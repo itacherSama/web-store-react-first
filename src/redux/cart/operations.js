@@ -1,3 +1,5 @@
-import actionTypes from './types';
+/* import Api from '@api';
 import * as actions from './actions';
-// import Api from '@api';
+ */
+export default {
+};

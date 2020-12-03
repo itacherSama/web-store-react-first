@@ -1,8 +1,9 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-require('dotenv').config()
+require('dotenv').config();
+
 const ENV = process.env.APP_ENV;
 
 const isProd = ENV === 'production';
@@ -12,42 +13,49 @@ const CSSModuleLoader = {
   options: {
     modules: {
       localIdentName: '[name]_[local]_[hash:base64:5]',
-      exportLocalsConvention: "camelCase",
-      mode: "local",
+      exportLocalsConvention: 'camelCase',
+      mode: 'local',
 
     },
     importLoaders: 2,
     sourceMap: false,
-  }
-}
+  },
+};
 
 const CSSLoader = {
   loader: 'css-loader',
   options: {
     modules: {
-      mode: "global",
-      exportLocalsConvention: "camelCase"
+      mode: 'global',
+      exportLocalsConvention: 'camelCase',
     },
     importLoaders: 2,
     sourceMap: false,
-  }
-}
+  },
+};
 
 const SASSLoader = {
-  loader: "sass-loader",
+  loader: 'sass-loader',
   options: {
     sassOptions: {
       data: '@import "variables";',
-      includePaths: [path.resolve(__dirname, "./src/scss")]
+      includePaths: [path.resolve(__dirname, './src/scss')],
     },
   },
+};
+
+function setDevTool() { // function to set dev-tool depending on environment
+  if (isProd) {
+    return 'inline-source-map';
+  }
+  return 'source-map';
 }
 
 const config = {
   mode: ENV,
-  entry: path.resolve(__dirname, "src", "index.js"),
+  entry: path.resolve(__dirname, 'src', 'index.js'),
   output: {
-    filename: "bundle.js",
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
   },
@@ -56,19 +64,19 @@ const config = {
       {
         test: /\.(sa|sc|c)ss$/,
         exclude: /\.module\.(sa|sc|c)ss$/,
-        use: ["style-loader", CSSLoader, SASSLoader]
+        use: ['style-loader', CSSLoader, SASSLoader],
       },
       {
         test: /\.module\.(sa|sc|c)ss$/,
-        use: ["style-loader", CSSModuleLoader, SASSLoader]
+        use: ['style-loader', CSSModuleLoader, SASSLoader],
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: ['babel-loader'],
       },
       {
-        test: /\.(png|svg|gif|jpe?g)$/,
+        test: /\.(png|gif|jpe?g)$/,
         use: [
           {
             loader: 'file-loader',
@@ -83,11 +91,29 @@ const config = {
         test: /\.(eot|ttf|woff|woff2)$/,
         use: [
           {
-            loader: 'file-loader?name=./fonts/[name].[ext]'
-          }
-        ]
-      }
-    ]
+            loader: 'file-loader?name=./fonts/[name].[ext]',
+          },
+        ],
+      },
+
+      {
+        test: /\.svg$/,
+        use: [
+          'babel-loader',
+          {
+            loader: 'react-svg-loader',
+            options: {
+              svgo: {
+                plugins: [{ removeTitle: false }],
+                floatPrecision: 2,
+              },
+              jsx: true,
+            },
+          },
+        ],
+      },
+
+    ],
   },
   resolve: {
     alias: {
@@ -100,35 +126,26 @@ const config = {
       '@shared': path.resolve(__dirname, 'src/shared'),
 
     },
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: path.resolve(__dirname) + "/public/index.html"
+      filename: 'index.html',
+      template: `${path.resolve(__dirname)}/public/index.html`,
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
   devServer: {
     host: 'localhost',
     port: 8080,
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: path.join(__dirname, 'dist'),
     // open: true
     historyApiFallback: true,
 
   },
   devtool: setDevTool(),
 
-}
+};
 
 module.exports = config;
-
-
-function setDevTool() {  // function to set dev-tool depending on environment
-  if (isProd) {
-    return 'inline-source-map';
-  } else {
-    return 'source-map';
-  }
-}

@@ -2,8 +2,11 @@ import { Route, Switch } from 'react-router-dom';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Home, Cart, NotFound } from './pages';
-import { Header, MapYandex } from "./components";
+import Home from '@pages/Home';
+import Cart from '@pages/Cart';
+import NotFound from '@pages/NotFound';
+import Header from '@components/Header';
+import MapYandex from '@components/MapYandex';
 
 import { getLocalDataCart } from '@redux/cart/actions';
 
@@ -16,11 +19,11 @@ function App() {
   }, []);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={ styles.wrapper }>
       <Header />
-      <div className={styles.content}>
+      <div className={ styles.content }>
         <Switch>
-          <Route path="/" exact>
+          <Route exact path="/">
             <Home />
           </Route>
           <Route path="/cart">

@@ -2,26 +2,21 @@ import actionTypes from './types';
 
 const initialState = {
   items: [],
-  isLoading: false
+  isLoading: false,
 };
 
 const pizzaReducer = (state = initialState, action) => {
-
   const functionsReducer = {
-    [actionTypes.SET_PIZZAS]: () => {
-      return {
-        ...state,
-        items: action.payload.items,
-        isLoading: action.payload.isLoading
-      }
-    },
-    [actionTypes.SET_LOADING]: () => {
-      return {
-        ...state,
-        isLoading: action.payload
-      }
-    }
-  }
+    [actionTypes.SET_PIZZAS]: () => ({
+      ...state,
+      items: action.payload.items,
+      isLoading: action.payload.isLoading,
+    }),
+    [actionTypes.SET_LOADING]: () => ({
+      ...state,
+      isLoading: action.payload,
+    }),
+  };
 
   const checkProperty = functionsReducer.hasOwnProperty(action.type);
 
@@ -31,6 +26,6 @@ const pizzaReducer = (state = initialState, action) => {
   }
 
   return state;
-}
+};
 
 export default pizzaReducer;

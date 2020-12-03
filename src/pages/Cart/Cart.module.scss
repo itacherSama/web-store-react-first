@@ -23,26 +23,31 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .title {
+      display: flex;
+      align-items: center;
+      font-size: 32px;
+
+      svg {
+        position: relative;
+        top: -2px;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        fill: #fff;
+
+        path {
+          stroke: $black;
+          stroke-width: 1.5;
+        }
+      }
+    }
     @media (max-width: 768px) {
       flex-direction: column;
 
       .title {
         margin-bottom: 20px;
-      }
-    }
-  }
-
-  .title {
-    display: flex;
-    align-items: center;
-    font-size: 32px;
-
-    svg {
-      position: relative;
-      top: -2px;
-      margin-right: 10px;
-      path {
-        stroke: $black;
       }
     }
   }

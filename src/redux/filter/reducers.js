@@ -5,28 +5,23 @@ const initialState = {
     type: 'rating',
     order: 'asc',
   },
-  sortCategory: 'all'
+  sortCategory: 'all',
 };
 
 const filterReducer = (state = initialState, action) => {
-
   const functionsReducer = {
-    [actionTypes.SET_SORT_BY]: () => {
-      return {
-        ...state,
-        sortBy: {
-          ...state.sortBy,
-          type: action.payload
-        }
-      };
-    },
-    [actionTypes.SET_CATEGORY]: () => {
-      return {
-        ...state,
-        sortCategory: action.payload
-      }
-    }
-  }
+    [actionTypes.SET_SORT_BY]: () => ({
+      ...state,
+      sortBy: {
+        ...state.sortBy,
+        type: action.payload,
+      },
+    }),
+    [actionTypes.SET_CATEGORY]: () => ({
+      ...state,
+      sortCategory: action.payload,
+    }),
+  };
 
   const checkProperty = functionsReducer.hasOwnProperty(action.type);
 
@@ -36,6 +31,6 @@ const filterReducer = (state = initialState, action) => {
   }
 
   return state;
-}
+};
 
 export default filterReducer;

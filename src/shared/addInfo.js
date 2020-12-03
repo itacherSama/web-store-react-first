@@ -3,23 +3,23 @@ export const categoriesNames = [
   'Вегетарианская',
   'Гриль',
   'Острые',
-  'Закрытые'
+  'Закрытые',
 ];
 
 export const sortNames = [
   {
     name: 'популярности',
     type: 'rating',
-    order: 'asc'
+    order: 'asc',
   }, {
     name: 'цене',
     type: 'price',
-    order: 'asc'
+    order: 'asc',
   }, {
     name: 'алфавиту',
     type: 'name',
-    order: 'desc'
-  }
+    order: 'desc',
+  },
 ];
 
 export const availableTypes = ['тонкое', 'традиционное'];

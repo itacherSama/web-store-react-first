@@ -11,5 +11,5 @@ export default {
   DECREMENT_PIZZA,
   DELETE_PIZZA,
   CLEAR_CART,
-  GET_LOCAL_CART
-}
+  GET_LOCAL_CART,
+};
