@@ -71,7 +71,7 @@ export const deleteItem = (arr, item) => {
   return filteredArray;
 };
 
-export const performOpItem = (items = [], item, operation) => {
+export const calcActionByPropOperation = (items = [], item, operation) => {
   const isFindedElement = hasItemInArray(items, item);
 
   if (isFindedElement) {

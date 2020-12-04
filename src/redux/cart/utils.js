@@ -1,10 +1,12 @@
 import {
-  performOpItem, findTotalByProps, deleteItem, saveDataInLocalStorage, getDataOutLocalStorage,
+  calcActionByPropOperation, findTotalByProps,
+  deleteItem, saveDataInLocalStorage,
+  getDataOutLocalStorage,
 } from '@utils/utils';
 
-export const performOperationsOnElement = (state, action) => {
+export const performOperationOnElement = (state, action) => {
   const { item, operation } = action.payload;
-  const newItems = performOpItem(state.items[item.id], item, operation);
+  const newItems = calcActionByPropOperation(state.items[item.id], item, operation);
   const newState = {
     ...state,
     items: {
@@ -12,6 +14,7 @@ export const performOperationsOnElement = (state, action) => {
       [item.id]: newItems,
     },
   };
+
   const [totalPrice, totalItems] = findTotalByProps(newState.items, ['totalPrice', 'totalItems']);
   saveDataInLocalStorage(newState.items, 'pizzas');
 

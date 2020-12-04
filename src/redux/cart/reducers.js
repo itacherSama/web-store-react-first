@@ -1,7 +1,7 @@
 import actionTypes from './types';
 
 import {
-  deletePizza, performOperationsOnElement, clearCart, getLocalDataCart,
+  deletePizza, performOperationOnElement, clearCart, getLocalDataCart,
 } from './utils';
 
 const initialState = {
@@ -12,9 +12,9 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
   const functionsReducer = {
-    [actionTypes.ADD_PIZZA]: () => performOperationsOnElement(state, action),
-    [actionTypes.INCREMENT_PIZZA]: () => performOperationsOnElement(state, action),
-    [actionTypes.DECREMENT_PIZZA]: () => performOperationsOnElement(state, action),
+    [actionTypes.ADD_PIZZA]: () => performOperationOnElement(state, action),
+    [actionTypes.INCREMENT_PIZZA]: () => performOperationOnElement(state, action),
+    [actionTypes.DECREMENT_PIZZA]: () => performOperationOnElement(state, action),
     [actionTypes.DELETE_PIZZA]: () => deletePizza(state, action),
     [actionTypes.CLEAR_CART]: () => clearCart(),
     [actionTypes.GET_LOCAL_CART]: () => getLocalDataCart(state, action),
