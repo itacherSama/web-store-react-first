@@ -3,10 +3,10 @@ const comparisonObjByKeys = (keys, firstObj, secondObj) => {
   return areEqual;
 };
 
-const findIndexInArray = (array, item) => {
+const findIndexInArray = (arrItems, item) => {
   const keysOfItem = Object.keys(item);
 
-  const idx = array.findIndex((arrayFromBlock) => {
+  const idx = arrItems.findIndex((arrayFromBlock) => {
     const areEqual = comparisonObjByKeys(keysOfItem, item, arrayFromBlock.item);
     return areEqual;
   });
@@ -14,33 +14,33 @@ const findIndexInArray = (array, item) => {
   return idx;
 };
 
-export const hasItemInArray = (array, item) => {
-  const res = findIndexInArray(array, item);
+export const hasItemInArray = (arrItems, item) => {
+  const res = findIndexInArray(arrItems, item);
   return res !== -1;
 };
 
-export const copyFullArrayWithObj = (arr) => {
-  const copiedArrOfObj = arr.map((el) => ({ ...el }));
+export const copyFullArrayWithObj = (arrObjs) => {
+  const copiedArrOfObj = JSON.parse(JSON.stringify(arrObjs)); /* bad copy */
 
   return copiedArrOfObj;
 };
 
-export const calcItem = (array, item, operation) => {
-  const newArr = copyFullArrayWithObj(array);
-  const idxItem = findIndexInArray(newArr, item);
+export const calcItemByPropOperation = (arrItems, item, operation) => {
+  const copyOfArrItems = copyFullArrayWithObj(arrItems);
+  const idxItem = findIndexInArray(copyOfArrItems, item);
 
   if (idxItem !== -1) {
-    const currentItem = newArr[idxItem];
+    const currentItem = copyOfArrItems[idxItem];
     const { totalItems, totalPrice } = currentItem;
 
     if (operation === '+') {
-      newArr[idxItem] = {
+      copyOfArrItems[idxItem] = {
         ...currentItem,
         totalItems: totalItems + 1,
         totalPrice: totalPrice + item.price,
       };
     } else if (operation === '-' && currentItem.totalItems > 1) {
-      newArr[idxItem] = {
+      copyOfArrItems[idxItem] = {
         ...currentItem,
         totalItems: totalItems - 1,
         totalPrice: totalPrice - item.price,
@@ -48,12 +48,12 @@ export const calcItem = (array, item, operation) => {
     }
   }
 
-  return newArr;
+  return copyOfArrItems;
 };
 
-export const addItem = (arr, item) => {
-  const upgradedItem = [
-    ...arr,
+export const addItem = (arrItems, item) => {
+  const updatedArray = [
+    ...arrItems,
     {
       item,
       totalItems: 1,
@@ -61,7 +61,7 @@ export const addItem = (arr, item) => {
     },
   ];
 
-  return upgradedItem;
+  return updatedArray;
 };
 
 export const deleteItem = (arr, item) => {
@@ -75,7 +75,7 @@ export const calcActionByPropOperation = (items = [], item, operation) => {
   const isFindedElement = hasItemInArray(items, item);
 
   if (isFindedElement) {
-    return calcItem(items, item, operation);
+    return calcItemByPropOperation(items, item, operation);
   }
   return addItem(items, item);
 };
