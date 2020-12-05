@@ -13,10 +13,8 @@ const Api = {
   },
 
   getDataMap(coords) {
-    return axios.get(`${mapYandexUrl}?apikey=${apikey}&format=json&geocode=${coords}&sco=latlong`).then((res) => {
-      console.log(res.data);
-      return res.data;
-    });
+    const queryParamsForData = `apikey=${apikey}&format=json&geocode=${coords}&sco=latlong&kind=house&results=1`;
+    return axios.get(`${mapYandexUrl}?${queryParamsForData}`).then((res) => res.data);
   },
 };
 

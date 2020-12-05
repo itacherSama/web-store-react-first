@@ -2,44 +2,91 @@ import React from 'react';
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import Api from '@api';
 
+const dataParams = ['locality', 'street', 'house'];
 
 const MapYandex = () => {
   const [placemark, setPlacemark] = React.useState(null);
+  /* const [currentPlace, setCurrentPlace] = React.useState(null); */
 
+  const printPlace = (place) => {
+    const stringPlace = Object.values(place).join();
+    return stringPlace;
+  };
 
-  const onChangePlacemark = (e) => {
+  const extractDataMap = (data) => {
+    const itemWithDataMap = data
+      .response
+      .GeoObjectCollection
+      .featureMember[0];
+
+    if (!itemWithDataMap) {
+      return false;
+    }
+
+    const arrayWithObjDataMap = itemWithDataMap
+      .GeoObject
+      .metaDataProperty
+      .GeocoderMetaData
+      .Address
+      .Components;
+
+    const needData = arrayWithObjDataMap.reduce(((newObject, el) => {
+      if (!dataParams.includes(el.kind)) {
+        return;
+      }
+      const res = {
+        ...newObject,
+        [el.kind]: el.name,
+      };
+
+      return res;
+    }), {});
+
+    return needData;
+  };
+
+  const getDataMap = async (coords) => {
+    const dataMap = await Api.getDataMap(coords);
+    const extractedDataMap = extractDataMap(dataMap);
+    return extractedDataMap;
+  };
+
+  const onChangePlacemark = async (e) => {
     const coords = e.get('coords');
-    console.log(coords);
-    console.log(Api.getDataMap(coords));
-    setPlacemark(<Placemark
-      geometry={coords}
-      properties={{
-        balloonContentBody:
-          'This is balloon loaded by the Yandex.Maps API module system',
-      }}
-    />);
+    const dataByCoords = await getDataMap(coords);
+    if (!dataByCoords) return;
+
+    /*     setCurrentPlace(dataByCoords); */
+    setPlacemark(
+      <Placemark
+        geometry={ coords }
+        properties={ {
+          balloonContentBody: ` ${printPlace(dataByCoords)}`,
+        } }
+      />,
+    );
   };
 
   return (
 
     <YMaps
-      query={{
+      query={ {
         ns: 'use-load-option',
         load:
           'Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon',
-      }}
+      } }
     >
       <div>
         My awesome application with maps!
-      <Map
-          defaultState={{
+        <Map
+          defaultState={ {
             center: [55.75, 37.57],
             zoom: 9,
             controls: ['zoomControl', 'fullscreenControl'],
-          }}
-          width={700}
-          height={400}
-          onClick={onChangePlacemark}
+          } }
+          height={ 400 }
+          onClick={ onChangePlacemark }
+          width={ 700 }
         >
           {placemark}
         </Map>
