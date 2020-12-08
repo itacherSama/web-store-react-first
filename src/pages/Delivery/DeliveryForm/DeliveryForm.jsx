@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import SelectUI from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 
 import Button from '@material-ui/core/Button';
 
@@ -15,35 +16,43 @@ import styles from './DeliveryForm.module.scss';
 
 const dataCities = [
   { value: 'Ульяновск', label: 'Ульяновск' },
-  { value: 'Саранск', label: 'Саранс2к' },
-  { value: 'Саранск', label: 'Саран23ск' },
-  { value: 'Саранск', label: 'Сар4анск' },
-  { value: 'Саранск', label: 'С5аранск' },
-  { value: 'Саранск', label: 'Са6ранск' },
-  { value: 'Саранск', label: 'Сара7нск' },
-  { value: 'Саранск', label: 'Саран8ск' },
-  { value: 'Саранск', label: 'Саран3ск' },
+  { value: 'Ульян1овск', label: 'Улья1новск' },
+  { value: 'Улья2новск', label: 'Уль2яновск' },
 ];
 
 const Input = ({
-  label, register, required, defaultValue, name, placeholder,
+  label, register, required, defaultValue, name,
 }) => (
-  <div className={ styles.container }>
-    <label className={ styles.inputLabel }>{label}</label>
+  <FormControl fullWidth>
+
+    <InputLabel>{label}</InputLabel>
+
     <InputUI
       defaultValue={ defaultValue } fullWidth inputRef={ register({ required }) }
-      name={ name } placeholder={ placeholder }
+      name={ name }
     />
-  </div>
+  </FormControl>
+
 );
 
 const Select = ({
   label, name, register, options,
 }) => (
-  <FormControl>
-    <label className={ styles.inputLabel }>{label}</label>
+  <FormControl fullWidth>
+    <InputLabel>{label}</InputLabel>
     <SelectUI
-      defaultValue={ options[0].value }
+      MenuProps={ {
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+        transformOrigin: {
+          vertical: 'top',
+          horizontal: 'left',
+        },
+        getContentAnchorEl: null,
+      } }
+      defaultValue={ '' }
       inputRef={ register }
       name={ name }
     >
@@ -55,9 +64,11 @@ const Select = ({
 );
 
 const DeliveryForm = ({ submitForm }) => {
-  const { register, handleSubmit, control } = useForm();
+  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
-  const { city, street } = useSelector((state) => state.formReducer);
+  const {
+    city, street, house, flat, porch, floor, codeIntercom,
+  } = useSelector((state) => state.formReducer);
 
   /*   const onSubmit = (data) => dispatch(setDelivery(data)); */
 
@@ -65,24 +76,48 @@ const DeliveryForm = ({ submitForm }) => {
     <form onSubmit={ handleSubmit(submitForm) }>
       <Grid container spacing={ 4 }>
         <Grid
-          item md={ 6 }
-          xs={ 12 }
+          item xs={ 6 }
         >
           <Select
-            control={ control } defaultValue={ city } label="Город"
+            defaultValue={ city } label="Город"
             name="city" options={ dataCities } register={ register }
           />
         </Grid>
         <Grid
-          item md={ 6 }
-          xs={ 12 }
+          item xs={ 6 }
         >
           <Input
             defaultValue={ street } label="Улица" name="street"
-            placeholder="Введите улицу" register={ register } required
+            register={ register } required
           />
         </Grid>
 
+        <Grid item xs={ 3 }>
+          <Input
+            defaultValue={ house } label="Дом" name="house"
+
+            register={ register } required
+          />
+        </Grid>
+        <Grid item xs={ 3 }>
+          <Input
+            defaultValue={ flat } label="Квартира" name="flat"
+
+            register={ register } required
+          />
+        </Grid><Grid item xs={ 2 }><Input
+          defaultValue={ porch } label="Подъезд" name="porch"
+
+          register={ register } required
+                                   /></Grid>
+        <Grid item xs={ 2 }><Input
+          defaultValue={ floor } label="Этаж" name="floor"
+          register={ register } required
+                            /></Grid>
+        <Grid item xs={ 2 }><Input
+          defaultValue={ codeIntercom } label="Код" name="codeIntercom"
+          register={ register } required
+                            /></Grid>
       </Grid>
       <Button type="submit" variant="contained">Default</Button>
     </form>
