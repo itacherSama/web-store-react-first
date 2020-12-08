@@ -85,7 +85,7 @@ const Cart = () => {
               </Button>
             </Link>
             <Button className={ 'buttonPay' }>
-              <span>Оплатить сейчас</span>
+              <span>Далее</span>
             </Button>
           </div>
         </div>

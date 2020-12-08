@@ -12,12 +12,10 @@ import './scss/app.scss';
 const history = createBrowserHistory();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router history={ history }>
-      <Provider store={ store }>
-        <App />
-      </Provider>
-    </Router>
-  </React.StrictMode >,
+  <Router history={ history }>
+    <Provider store={ store }>
+      <App />
+    </Provider>
+  </Router>,
   document.getElementById('root'),
 );

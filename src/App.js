@@ -2,11 +2,12 @@ import { Route, Switch } from 'react-router-dom';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
+import Header from '@components/Header';
 import Home from '@pages/Home';
 import Cart from '@pages/Cart';
+import Delivery from '@pages/Delivery';
 import NotFound from '@pages/NotFound';
-import Header from '@components/Header';
-import MapYandex from '@components/MapYandex';
+// import MapYandex from '@components/MapYandex';
 
 import { getLocalDataCart } from '@redux/cart/actions';
 
@@ -29,10 +30,9 @@ function App() {
           <Route path="/cart">
             <Cart />
           </Route>
-          <Route path="/map">
-            <MapYandex />
+          <Route path="/delivery">
+            <Delivery />
           </Route>
-
           <Route>
             <NotFound />
           </Route>
