@@ -1,10 +1,12 @@
 import React from 'react';
-import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import {
+  YMaps, Map, Placemark,
+} from 'react-yandex-maps';
 import Api from '@api';
 
 const dataParams = ['locality', 'street', 'house'];
 
-const MapYandex = () => {
+const MapYandex = ({ setPlace }) => {
   const [placemark, setPlacemark] = React.useState(null);
   /* const [currentPlace, setCurrentPlace] = React.useState(null); */
 
@@ -54,8 +56,8 @@ const MapYandex = () => {
     const coords = e.get('coords');
     const dataByCoords = await getDataMap(coords);
     if (!dataByCoords) return;
-
     /*     setCurrentPlace(dataByCoords); */
+    setPlace(printPlace(dataByCoords));
     setPlacemark(
       <Placemark
         geometry={ coords }
@@ -85,6 +87,7 @@ const MapYandex = () => {
         onClick={ onChangePlacemark }
         width={ 700 }
       >
+
         {placemark}
       </Map>
     </YMaps>

@@ -8,8 +8,9 @@ import Button from '@components/Button';
 import Icon from '@components/Icon';
 
 import greyArowLeftSvg from '@assets/img/grey-arrow-left.svg';
-import DeliveryForm from './DeliveryForm';
+import Modal from '@components/Modal';
 
+import DeliveryForm from './DeliveryForm';
 import styles from './Delivery.module.scss';
 
 const typeContent = ['formDelivery', 'mapDelivery'];
@@ -17,6 +18,7 @@ const typeContent = ['formDelivery', 'mapDelivery'];
 const Delivery = () => {
   const dispatch = useDispatch();
   const [content, setContent] = React.useState(typeContent[1]);
+  const [openModal, setOpenModal] = React.useState(false);
 
   const submitForm = (valuesOfData) => {
     dispatch(setDelivery(valuesOfData));
@@ -25,6 +27,15 @@ const Delivery = () => {
   const changeContentDelivery = () => {
     const newContent = content === typeContent[0] ? typeContent[1] : typeContent[0];
     setContent(newContent);
+  };
+
+  const setPlace = (string) => {
+    console.log(string);
+    setOpenModal(true);
+  };
+
+  const onCloseModal = () => {
+    setOpenModal(false);
   };
 
   const СontainerDeliveryForm = (
@@ -46,7 +57,7 @@ const Delivery = () => {
           <span>Вернуться назад</span>
         </Button>
       </div>
-      <MapYandex />
+      <MapYandex setPlace={ setPlace } />
     </div>
   );
 
@@ -57,6 +68,8 @@ const Delivery = () => {
       {content === typeContent[0]
         ? СontainerDeliveryForm
         : СontainerDeliveryMap }
+      <Modal onClose={ onCloseModal } open={ openModal } />
+
     </div>
   );
 };
