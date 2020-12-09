@@ -1,19 +1,36 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import { Input, Select } from '@components/anotherComponents/FormsControls';
+import * as yup from 'yup';
 
-/* import styles from './DeliveryForm.module.scss'; */
+import Grid from '@material-ui/core/Grid';
+import { Input, Select } from '@components/anotherComponents/FormsControls';
+import { yupResolver } from '@hookform/resolvers/yup';
+import Button from '@components/Button';
+
+import styles from './DeliveryForm.module.scss';
 
 const dataCities = [
   { value: 'Ульяновск', label: 'Ульяновск' },
-  { value: 'Улья2новск', label: 'Уль2яновск' },
 ];
 
+const schema = yup.object().shape({
+  city: yup.string().required(),
+  street: yup.string().required(),
+  house: yup.string().required(),
+  flat: yup.number().required(),
+  porch: yup.number().required(),
+  floor: yup.number().required(),
+  codeIntercom: yup.number().required(),
+});
+
 const DeliveryForm = ({ submitForm }) => {
-  const { register, handleSubmit, control } = useForm();
+  const {
+    register, handleSubmit, control, errors,
+  } = useForm({
+    mode: 'onTouched',
+    resolver: yupResolver(schema),
+  });
   const {
     city, street, house, flat, porch, floor, codeIntercom,
   } = useSelector((state) => state.formReducer);
@@ -26,7 +43,7 @@ const DeliveryForm = ({ submitForm }) => {
         >
           <Select
             control={ control } defaultValue={ city }
-            label="Город" name="city" options={ dataCities }
+            label='Город' name='city' options={ dataCities }
             required
           />
         </Grid>
@@ -34,46 +51,52 @@ const DeliveryForm = ({ submitForm }) => {
           item xs={ 6 }
         >
           <Input
-            defaultValue={ street } label="Улица" name="street"
-            register={ register } required
+            defaultValue={ street } errors={ errors } label='Улица'
+            name='street' register={ register }
           />
         </Grid>
 
         <Grid item xs={ 3 }>
           <Input
-            defaultValue={ house } label="Дом" name="house"
-
-            register={ register } required
+            defaultValue={ house } errors={ errors } label='Дом'
+            name='house'
+            register={ register }
           />
         </Grid>
         <Grid item xs={ 3 }>
           <Input
-            defaultValue={ flat } label="Квартира" name="flat"
-
-            register={ register } required
+            defaultValue={ flat } errors={ errors } label='Квартира'
+            name='flat'
+            register={ register }
           />
         </Grid>
         <Grid item xs={ 2 }>
           <Input
-            defaultValue={ porch } label="Подъезд" name="porch"
-
-            register={ register } required
+            defaultValue={ porch } errors={ errors } label='Подъезд'
+            name='porch'
+            register={ register }
           />
         </Grid>
         <Grid item xs={ 2 }>
           <Input
-            defaultValue={ floor } label="Этаж" name="floor"
-            register={ register } required
+            defaultValue={ floor } errors={ errors } label='Этаж'
+            name='floor' register={ register }
           />
         </Grid>
         <Grid item xs={ 2 }>
           <Input
-            defaultValue={ codeIntercom } label="Код" name="codeIntercom"
-            register={ register } required
+            defaultValue={ codeIntercom } errors={ errors } label='Код'
+            name='codeIntercom' register={ register }
           />
         </Grid>
       </Grid>
-      <Button type="submit" variant="contained">Далее</Button>
+      <div className={ styles.formSubmit }>
+
+        <Button className={ 'buttonNext' } type='submit'>
+          <span>Далее</span>
+        </Button>
+      </div>
+
     </form>
   );
 };

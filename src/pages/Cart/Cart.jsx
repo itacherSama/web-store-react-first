@@ -84,7 +84,7 @@ const Cart = () => {
                 <span>Вернуться назад</span>
               </Button>
             </Link>
-            <Button className={ 'buttonPay' }>
+            <Button className={ 'buttonNext' }>
               <span>Далее</span>
             </Button>
           </div>

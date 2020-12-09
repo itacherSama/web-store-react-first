@@ -8,19 +8,23 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
 export const Input = ({
-  label, register, required, defaultValue, name,
-}) => (
-  <FormControlUI fullWidth>
+  label, register, defaultValue, name, errors,
+}) => {
+  const error = errors ? !!errors[name] : false;
+  return (
+    <FormControlUI fullWidth>
 
-    <InputLabel>{label}</InputLabel>
+      <InputLabel>{label}</InputLabel>
 
-    <InputUI
-      defaultValue={ defaultValue } fullWidth inputRef={ register({ required }) }
-      name={ name }
-    />
-  </FormControlUI>
+      <InputUI
+        defaultValue={ defaultValue }
+        error={ error } fullWidth inputRef={ register }
+        name={ name }
+      />
+    </FormControlUI>
 
-);
+  );
+};
 
 export const Select = ({
   label, name, control, options, required, defaultValue,

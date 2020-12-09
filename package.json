@@ -9,6 +9,7 @@
     "start": "webpack serve"
   },
   "dependencies": {
+    "@hookform/resolvers": "^1.1.1",
     "@material-ui/core": "^4.11.2",
     "antd": "^4.9.2",
     "axios": "^0.20.0",
@@ -25,7 +26,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "use-url-search-params": "^2.3.13"
+    "use-url-search-params": "^2.3.13",
+    "yup": "^0.32.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",

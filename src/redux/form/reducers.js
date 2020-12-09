@@ -3,14 +3,18 @@ import actionTypes from './types';
 const initialState = {
   city: '',
   street: '',
+  house: '',
+  flat: '',
+  porch: '',
+  floor: '',
+  codeIntercom: '',
 };
 
 const formReducer = (state = initialState, action) => {
   const functionsReducer = {
     [actionTypes.SET_DELIVERY]: () => ({
       ...state,
-      city: action.payload.city,
-      street: action.payload.street,
+      ...action.payload,
     }),
   };
 

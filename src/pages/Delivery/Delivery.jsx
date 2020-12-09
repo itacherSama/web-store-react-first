@@ -10,9 +10,8 @@ import styles from './Delivery.module.scss';
 const Delivery = () => {
   const dispatch = useDispatch();
 
-  const submitForm = (values) => {
-    console.log(values);
-    dispatch(setDelivery);
+  const submitForm = (valuesOfData) => {
+    dispatch(setDelivery(valuesOfData));
   };
 
   return (
