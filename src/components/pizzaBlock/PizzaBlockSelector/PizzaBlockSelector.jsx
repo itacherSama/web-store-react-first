@@ -18,7 +18,7 @@ const PizzaBlockSelector = React.memo(({
   };
 
   return (
-    <ul>
+    <ul className={ styles.selector }>
       { availableTypes.map((type, index) => {
         const value = generateValueByView(index);
 

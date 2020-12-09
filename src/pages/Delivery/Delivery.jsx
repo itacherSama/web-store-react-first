@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { useDispatch } from 'react-redux';
+import { setDelivery } from '@redux/form/actions';
 // import { Link } from 'react-router-dom';
 
 import DeliveryForm from './DeliveryForm';
@@ -7,8 +8,11 @@ import DeliveryForm from './DeliveryForm';
 import styles from './Delivery.module.scss';
 
 const Delivery = () => {
+  const dispatch = useDispatch();
+
   const submitForm = (values) => {
     console.log(values);
+    dispatch(setDelivery);
   };
 
   return (
