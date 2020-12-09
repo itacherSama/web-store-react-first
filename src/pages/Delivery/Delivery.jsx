@@ -5,6 +5,9 @@ import { setDelivery } from '@redux/form/actions';
 
 import MapYandex from '@components/MapYandex';
 import Button from '@components/Button';
+import Icon from '@components/Icon';
+
+import greyArowLeftSvg from '@assets/img/grey-arrow-left.svg';
 import DeliveryForm from './DeliveryForm';
 
 import styles from './Delivery.module.scss';
@@ -13,7 +16,7 @@ const typeContent = ['formDelivery', 'mapDelivery'];
 
 const Delivery = () => {
   const dispatch = useDispatch();
-  const [content, setContent] = React.useState(typeContent[0]);
+  const [content, setContent] = React.useState(typeContent[1]);
 
   const submitForm = (valuesOfData) => {
     dispatch(setDelivery(valuesOfData));
@@ -37,7 +40,11 @@ const Delivery = () => {
   const СontainerDeliveryMap = (
     <div>
       <div className={ styles.button }>
-        <Button className={ 'buttonBack' } onClick={ changeContentDelivery }>Назад</Button>
+        <Button className={ 'buttonGoBack' } onClick={ changeContentDelivery } outline>
+          <Icon src={ greyArowLeftSvg } />
+
+          <span>Вернуться назад</span>
+        </Button>
       </div>
       <MapYandex />
     </div>

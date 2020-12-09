@@ -50,7 +50,6 @@ const MapYandex = () => {
     const extractedDataMap = extractDataMap(dataMap);
     return extractedDataMap;
   };
-
   const onChangePlacemark = async (e) => {
     const coords = e.get('coords');
     const dataByCoords = await getDataMap(coords);
@@ -76,21 +75,18 @@ const MapYandex = () => {
           'Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon',
       } }
     >
-      <div>
-        My awesome application with maps!
-        <Map
-          defaultState={ {
-            center: [55.75, 37.57],
-            zoom: 9,
-            controls: ['zoomControl', 'fullscreenControl'],
-          } }
-          height={ 400 }
-          onClick={ onChangePlacemark }
-          width={ 700 }
-        >
-          {placemark}
-        </Map>
-      </div>
+      <Map
+        defaultState={ {
+          center: [54.314192, 48.403123],
+          zoom: 9,
+          controls: ['zoomControl', 'fullscreenControl'],
+        } }
+        height={ 400 }
+        onClick={ onChangePlacemark }
+        width={ 700 }
+      >
+        {placemark}
+      </Map>
     </YMaps>
   );
 };
