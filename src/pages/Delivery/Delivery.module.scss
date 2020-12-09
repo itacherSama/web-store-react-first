@@ -5,3 +5,15 @@
   max-width: 820px;
   margin: 30px auto;
 }
+
+.title {
+  margin-bottom: 30px;
+}
+.description {
+  margin-bottom: 30px;
+  &Map {
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration-line: underline;
+  }
+}
