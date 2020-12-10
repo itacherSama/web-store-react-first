@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Icon from '@components/Icon';
@@ -21,16 +21,18 @@ const Header = React.memo(() => {
   return (
     <div className={ styles.header }>
       <div className={ styles.container }>
-        <div className={ styles.logo }>
-          {<Icon src={ logoSvg } />}
-          <div>
-            <h1>React Pizza</h1>
-            <p>
-              {showHeaderCart && textForHeader[0]}
-              {!showHeaderCart && textForHeader[1]}
-            </p>
+        <Link to={ '/' }>
+          <div className={ styles.logo }>
+            {<Icon src={ logoSvg } />}
+            <div>
+              <h1>React Pizza</h1>
+              <p>
+                {showHeaderCart && textForHeader[0]}
+                {!showHeaderCart && textForHeader[1]}
+              </p>
+            </div>
           </div>
-        </div>
+        </Link>
         {showHeaderCart && <HeaderCartBtn totalItems={ totalItems } totalPrice={ totalPrice } />}
       </div>
     </div>
