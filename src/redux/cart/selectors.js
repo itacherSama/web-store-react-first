@@ -1,23 +1,23 @@
 import { createSelector } from 'reselect';
 import { createArrayWithObjsByProperty, getCountItemById } from '@utils/utils';
 
-export const getCartTotalPrice = (state) => state.cartReducer.totalPrice;
-export const getCartTotalItems = (state) => state.cartReducer.totalItems;
-export const getCartItemsSelector = (state) => state.cartReducer.items;
+export const getTotalPrice = (state) => state.cartReducer.totalPrice;
+export const getTotalItems = (state) => state.cartReducer.totalItems;
+export const getItemsSelector = (state) => state.cartReducer.items;
 export const getItemByIdSelector = (items, id) => items[id];
 
-export const getItemsForCartSelector = createSelector(
-  getCartItemsSelector,
+export const getItemsForSelector = createSelector(
+  getItemsSelector,
   createArrayWithObjsByProperty,
 );
 
-export const getCartItemSelector = createSelector(
-  getCartItemsSelector,
+export const getItemSelector = createSelector(
+  getItemsSelector,
   (_, id) => id,
   getItemByIdSelector,
 );
 
 export const getCountItemByIdSelector = createSelector(
-  getCartItemSelector,
+  getItemSelector,
   getCountItemById,
 );

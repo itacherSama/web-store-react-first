@@ -27,10 +27,10 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/cart">
+          <Route exact path="/cart">
             <Cart />
           </Route>
-          <Route path="/delivery">
+          <Route path="/cart/delivery">
             <Delivery />
           </Route>
           <Route>

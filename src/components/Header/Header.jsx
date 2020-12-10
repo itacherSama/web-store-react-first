@@ -5,12 +5,14 @@ import { useSelector } from 'react-redux';
 import Icon from '@components/Icon';
 import { textForHeader } from '@shared/addInfo';
 import logoSvg from '@assets/img/pizza-logo.svg';
+import { getTotalPrice, getTotalItems } from '@redux/cart/selectors';
 
 import HeaderCartBtn from './HeaderBtnCart';
 import styles from './Header.module.scss';
 
 const Header = React.memo(() => {
-  const { totalPrice, totalItems } = useSelector(({ cartReducer }) => cartReducer);
+  const totalPrice = useSelector(getTotalPrice);
+  const totalItems = useSelector(getTotalItems);
   const location = useLocation();
   const [showHeaderCart, setShowHeaderCart] = React.useState(true);
 

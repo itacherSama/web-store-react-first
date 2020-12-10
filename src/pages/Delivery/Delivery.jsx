@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setDelivery } from '@redux/form/actions';
-// import { Link } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
 import Modal from '@components/Modal';
 import ContainerDeliveryForm from '@components/DeliveryItems/ContainerDeliveryForm';
 import СontainerDeliveryMap from '@components/DeliveryItems/СontainerDeliveryMap';
@@ -15,15 +14,21 @@ const typeContent = ['formDelivery', 'mapDelivery'];
 const Delivery = () => {
   const dispatch = useDispatch();
   const [content, setContent] = React.useState(typeContent[0]);
+  const history = useHistory();
+
   const [optionModal, setOptionModal] = React.useState({
     open: false,
     children: '',
     title: '',
   });
 
-  const submitForm = (valuesOfData) => {
+  const setData = (valuesOfData) => {
     dispatch(setDelivery(valuesOfData));
-    console.log(valuesOfData, 'все ок');
+  };
+
+  const submitForm = (valuesOfData) => {
+    setData(valuesOfData);
+    history.push('/');
   };
 
   const changeContentDelivery = () => {
@@ -32,7 +37,7 @@ const Delivery = () => {
   };
 
   const setDataByCoords = (dataByCoords) => {
-    submitForm(dataByCoords);
+    setData(dataByCoords);
     setOptionModal({
       open: true,
       children: `${printDataByCoords(dataByCoords)}`,

@@ -7,16 +7,19 @@ import { PizzaLoader } from '@shared/loaders';
 import { setCategory, setSortBy } from '@redux/filter/actions';
 import { fetchPizzas } from '@redux/pizza/operations';
 import { addItem } from '@redux/cart/actions';
-
+import { getItemsSelector, getLoadingSelector } from '@redux/pizza/selectors';
+import { getSortBySelector, getSortCategorySelector } from '@redux/filter/selectors';
 import { categoriesNames, sortNames } from '@shared/addInfo';
 
 import styles from './Home.module.scss';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const pizzas = useSelector(({ pizzaReducer }) => pizzaReducer.items);
-  const { sortBy, sortCategory } = useSelector(({ filterReducer }) => filterReducer);
-  const isLoading = useSelector(({ pizzaReducer }) => pizzaReducer.isLoading);
+  const pizzas = useSelector(getItemsSelector);
+  const sortBy = useSelector(getSortBySelector);
+  const sortCategory = useSelector(getSortCategorySelector);
+  const isLoading = useSelector(getLoadingSelector);
+
   const [params, setParams] = useUrlSearchParams({}, {
     category: String,
     sort: String,
