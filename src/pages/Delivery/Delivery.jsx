@@ -3,22 +3,18 @@ import { useDispatch } from 'react-redux';
 import { setDelivery } from '@redux/form/actions';
 // import { Link } from 'react-router-dom';
 
-import MapYandex from '@components/MapYandex';
-import Button from '@components/Button';
-import Icon from '@components/Icon';
-
-import greyArowLeftSvg from '@assets/img/grey-arrow-left.svg';
 import Modal from '@components/Modal';
+import ContainerDeliveryForm from '@components/DeliveryItems/ContainerDeliveryForm';
+import СontainerDeliveryMap from '@components/DeliveryItems/СontainerDeliveryMap';
 import { printDataByCoords } from '@utils/utils';
 
-import DeliveryForm from './DeliveryForm';
 import styles from './Delivery.module.scss';
 
 const typeContent = ['formDelivery', 'mapDelivery'];
 
 const Delivery = () => {
   const dispatch = useDispatch();
-  const [content, setContent] = React.useState(typeContent[1]);
+  const [content, setContent] = React.useState(typeContent[0]);
   const [optionModal, setOptionModal] = React.useState({
     open: false,
     children: '',
@@ -54,36 +50,19 @@ const Delivery = () => {
     setContent(typeContent[0]);
   };
 
-  const СontainerDeliveryForm = (
-    <div>
-      <div className={ styles.description }>
-        Введите адрес или выберите дом
-        <span className={ styles.descriptionMap } onClick={ changeContentDelivery }> на карте</span>
-      </div>
-      <DeliveryForm submitForm={ submitForm } />
-    </div>
-  );
-
-  const СontainerDeliveryMap = (
-    <div>
-      <div className={ styles.button }>
-        <Button className={ 'buttonGoBack' } onClick={ changeContentDelivery } outline>
-          <Icon src={ greyArowLeftSvg } />
-
-          <span>Вернуться назад</span>
-        </Button>
-      </div>
-      <MapYandex setDataByCoords={ setDataByCoords } />
-    </div>
-  );
-
   return (
     <div className={ styles.container } >
       <h2 className={ styles.title }>Адрес</h2>
 
       {content === typeContent[0]
-        ? СontainerDeliveryForm
-        : СontainerDeliveryMap }
+        ? <ContainerDeliveryForm
+            changeContent={ changeContentDelivery }
+            submitForm={ submitForm }
+          />
+        : <СontainerDeliveryMap
+            changeContent={ changeContentDelivery }
+            setDataByCoords={ setDataByCoords }
+          /> }
       <Modal
         onClose={ onCloseModal } onSubmit={ onSubmitModal }
         open={ optionModal.open } title={ optionModal.title }

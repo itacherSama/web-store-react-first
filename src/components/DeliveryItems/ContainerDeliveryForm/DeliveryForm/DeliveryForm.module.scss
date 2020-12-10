@@ -10,3 +10,12 @@
   justify-content: flex-end;
   padding-top: 40px;
 }
+
+.description {
+  margin-bottom: 30px;
+  &Map {
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration-line: underline;
+  }
+}
