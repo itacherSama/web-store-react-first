@@ -9,6 +9,7 @@ import Icon from '@components/Icon';
 
 import greyArowLeftSvg from '@assets/img/grey-arrow-left.svg';
 import Modal from '@components/Modal';
+import { printDataByCoords } from '@utils/utils';
 
 import DeliveryForm from './DeliveryForm';
 import styles from './Delivery.module.scss';
@@ -18,7 +19,11 @@ const typeContent = ['formDelivery', 'mapDelivery'];
 const Delivery = () => {
   const dispatch = useDispatch();
   const [content, setContent] = React.useState(typeContent[1]);
-  const [openModal, setOpenModal] = React.useState(false);
+  const [optionModal, setOptionModal] = React.useState({
+    open: false,
+    children: '',
+    title: '',
+  });
 
   const submitForm = (valuesOfData) => {
     dispatch(setDelivery(valuesOfData));
@@ -29,13 +34,24 @@ const Delivery = () => {
     setContent(newContent);
   };
 
-  const setPlace = (string) => {
-    console.log(string);
-    setOpenModal(true);
+  const setDataByCoords = (dataByCoords) => {
+    submitForm(dataByCoords);
+    setOptionModal({
+      open: true,
+      children: `${printDataByCoords(dataByCoords)}`,
+      title: 'Адрес',
+    });
   };
 
   const onCloseModal = () => {
-    setOpenModal(false);
+    setOptionModal({
+      open: false,
+    });
+  };
+
+  const onSubmitModal = () => {
+    onCloseModal();
+    setContent(typeContent[0]);
   };
 
   const СontainerDeliveryForm = (
@@ -57,7 +73,7 @@ const Delivery = () => {
           <span>Вернуться назад</span>
         </Button>
       </div>
-      <MapYandex setPlace={ setPlace } />
+      <MapYandex setDataByCoords={ setDataByCoords } />
     </div>
   );
 
@@ -68,7 +84,12 @@ const Delivery = () => {
       {content === typeContent[0]
         ? СontainerDeliveryForm
         : СontainerDeliveryMap }
-      <Modal onClose={ onCloseModal } open={ openModal } />
+      <Modal
+        onClose={ onCloseModal } onSubmit={ onSubmitModal }
+        open={ optionModal.open } title={ optionModal.title }
+      >
+        {optionModal.children}
+      </Modal>
 
     </div>
   );

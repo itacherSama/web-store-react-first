@@ -43,7 +43,7 @@ const DeliveryForm = ({ submitForm }) => {
         >
           <Select
             control={ control } defaultValue={ city }
-            label='Город' name='city' options={ dataCities }
+            label='Город' name='locality' options={ dataCities }
             required
           />
         </Grid>

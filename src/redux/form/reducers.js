@@ -1,7 +1,7 @@
 import actionTypes from './types';
 
 const initialState = {
-  city: '',
+  locality: '',
   street: '',
   house: '',
   flat: '',

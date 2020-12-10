@@ -7,7 +7,7 @@ import styles from './button.module.scss';
 const Button = React.memo(({
   className, outline, children, onClick,
 }) => {
-  const ownClassName = className.split(' ').map((el) => styles[el]).join(' ');
+  const ownClassName = className ? className.split(' ').map((el) => styles[el]).join(' ') : '';
 
   return (
     <button

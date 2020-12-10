@@ -6,14 +6,8 @@ import Api from '@api';
 
 const dataParams = ['locality', 'street', 'house'];
 
-const MapYandex = ({ setPlace }) => {
+const MapYandex = ({ setDataByCoords }) => {
   const [placemark, setPlacemark] = React.useState(null);
-  /* const [currentPlace, setCurrentPlace] = React.useState(null); */
-
-  const printPlace = (place) => {
-    const stringPlace = Object.values(place).join();
-    return stringPlace;
-  };
 
   const extractDataMap = (data) => {
     const itemWithDataMap = data
@@ -57,13 +51,10 @@ const MapYandex = ({ setPlace }) => {
     const dataByCoords = await getDataMap(coords);
     if (!dataByCoords) return;
     /*     setCurrentPlace(dataByCoords); */
-    setPlace(printPlace(dataByCoords));
+    setDataByCoords(dataByCoords);
     setPlacemark(
       <Placemark
         geometry={ coords }
-        properties={ {
-          balloonContentBody: ` ${printPlace(dataByCoords)}`,
-        } }
       />,
     );
   };

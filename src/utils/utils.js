@@ -149,3 +149,8 @@ export const getDataOutLocalStorage = (key) => {
   const data = JSON.parse(itemByKey);
   return data;
 };
+
+export const printDataByCoords = (place) => {
+  const stringPlace = Object.values(place).join();
+  return stringPlace;
+};
