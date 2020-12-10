@@ -10,20 +10,19 @@ const initialState = {
   totalItems: 0,
 };
 
+const handlers = {
+  [actionTypes.ADD_PIZZA]: (state, action) => performOperationOnElement(state, action),
+  [actionTypes.INCREMENT_PIZZA]: (state, action) => performOperationOnElement(state, action),
+  [actionTypes.DECREMENT_PIZZA]: (state, action) => performOperationOnElement(state, action),
+  [actionTypes.DELETE_PIZZA]: (state, action) => deletePizza(state, action),
+  [actionTypes.CLEAR_CART]: () => clearCart(),
+  [actionTypes.GET_LOCAL_CART]: (state, action) => getLocalDataCart(state, action),
+
+};
+
 const cartReducer = (state = initialState, action) => {
-  const functionsReducer = {
-    [actionTypes.ADD_PIZZA]: () => performOperationOnElement(state, action),
-    [actionTypes.INCREMENT_PIZZA]: () => performOperationOnElement(state, action),
-    [actionTypes.DECREMENT_PIZZA]: () => performOperationOnElement(state, action),
-    [actionTypes.DELETE_PIZZA]: () => deletePizza(state, action),
-    [actionTypes.CLEAR_CART]: () => clearCart(),
-    [actionTypes.GET_LOCAL_CART]: () => getLocalDataCart(state, action),
-
-  };
-  const checkProperty = functionsReducer.hasOwnProperty(action.type);
-
-  if (checkProperty) {
-    const newState = functionsReducer[action.type]();
+  if (handlers[action.type]) {
+    const newState = handlers[action.type](state, action);
     return newState;
   }
 

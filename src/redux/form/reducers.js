@@ -1,4 +1,5 @@
 import actionTypes from './types';
+import { setDelivery } from './utils';
 
 const initialState = {
   locality: '',
@@ -10,18 +11,13 @@ const initialState = {
   codeIntercom: '',
 };
 
+const handlers = {
+  [actionTypes.SET_DELIVERY]: (state, action) => setDelivery(state, action),
+};
+
 const formReducer = (state = initialState, action) => {
-  const functionsReducer = {
-    [actionTypes.SET_DELIVERY]: () => ({
-      ...state,
-      ...action.payload,
-    }),
-  };
-
-  const checkProperty = functionsReducer.hasOwnProperty(action.type);
-
-  if (checkProperty) {
-    const newState = functionsReducer[action.type]();
+  if (handlers[action.type]) {
+    const newState = handlers[action.type](state, action);
     return newState;
   }
 

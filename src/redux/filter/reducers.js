@@ -1,4 +1,5 @@
 import actionTypes from './types';
+import { setSortBy, setCategory } from './utils';
 
 const initialState = {
   sortBy: {
@@ -8,25 +9,14 @@ const initialState = {
   sortCategory: 'all',
 };
 
+const handlers = {
+  [actionTypes.SET_SORT_BY]: (state, action) => setSortBy(state, action),
+  [actionTypes.SET_CATEGORY]: (state, action) => setCategory(state, action),
+};
+
 const filterReducer = (state = initialState, action) => {
-  const functionsReducer = {
-    [actionTypes.SET_SORT_BY]: () => ({
-      ...state,
-      sortBy: {
-        ...state.sortBy,
-        type: action.payload,
-      },
-    }),
-    [actionTypes.SET_CATEGORY]: () => ({
-      ...state,
-      sortCategory: action.payload,
-    }),
-  };
-
-  const checkProperty = functionsReducer.hasOwnProperty(action.type);
-
-  if (checkProperty) {
-    const newState = functionsReducer[action.type]();
+  if (handlers[action.type]) {
+    const newState = handlers[action.type](state, action);
     return newState;
   }
 

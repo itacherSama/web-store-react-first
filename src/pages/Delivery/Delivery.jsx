@@ -23,6 +23,7 @@ const Delivery = () => {
 
   const submitForm = (valuesOfData) => {
     dispatch(setDelivery(valuesOfData));
+    console.log(valuesOfData, 'все ок');
   };
 
   const changeContentDelivery = () => {

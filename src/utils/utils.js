@@ -106,7 +106,7 @@ export const findTotalByProps = (items, findProps) => {
   return totalSum;
 };
 
-export const createArrayWithObjsByProperty = (obj, prop) => {
+export const createArrayWithObjsByProperty = (obj, prop = 'item') => {
   const arrWithObjsByProperty = [];
 
   const findObjByProp = (object, prop) => {

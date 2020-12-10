@@ -4,9 +4,8 @@ import { useSelector } from 'react-redux';
 
 import { Button } from '@components';
 import { availableTypes, availableSizes } from '@shared/addInfo';
-import { getCountItemById } from '@utils/utils';
+import { getCountItemByIdSelector } from '@redux/cart/selectors';
 import Icon from '@components/Icon';
-
 import plusSvg from '@assets/img/plus.svg';
 import PizzaBlockSelector from './PizzaBlockSelector';
 
@@ -17,7 +16,8 @@ const PizzaBlock = ({
 }) => {
   const [selectedType, setSelectedType] = React.useState(types[0]);
   const [selectedSize, setSelectedSize] = React.useState(sizes[0]);
-  const countPizza = useSelector(({ cartReducer }) => getCountItemById(cartReducer.items[id]));
+  const countPizza = useSelector((state) => getCountItemByIdSelector(state, id));
+
   const pricePizza = price[availableSizes.indexOf(selectedSize)];
 
   const availableSizesWithText = availableSizes.map((el) => `${el} см.`);

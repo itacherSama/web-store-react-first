@@ -7,7 +7,7 @@ import {
   clearCart, incrementItem, decrementItem, deleteItem,
 } from '@redux/cart/actions';
 import Icon from '@components/Icon';
-import { createItemsForCartSelector } from '@redux/cart/selectors';
+import { getItemsForCartSelector, getCartTotalPrice, getCartTotalItems } from '@redux/cart/selectors';
 
 import trashSvg from '@assets/img/trash.svg';
 import cartSvg from '@assets/img/cart.svg';
@@ -18,9 +18,9 @@ import styles from './Cart.module.scss';
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { totalItems, totalPrice } = useSelector(({ cartReducer }) => cartReducer);
-  const arrayItems = useSelector(((state) => createItemsForCartSelector(state, 'item')
-  ));
+  const totalPrice = useSelector(getCartTotalPrice);
+  const totalItems = useSelector(getCartTotalItems);
+  const arrayItems = useSelector(getItemsForCartSelector);
 
   const onIncrementItem = (item) => {
     dispatch(incrementItem(item));
@@ -84,9 +84,11 @@ const Cart = () => {
                 <span>Вернуться назад</span>
               </Button>
             </Link>
-            <Button className={ 'buttonNext' }>
-              <span>Далее</span>
-            </Button>
+            <Link to="/delivery">
+              <Button className={ 'buttonNext' }>
+                <span>Далее</span>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

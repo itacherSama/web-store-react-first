@@ -15,13 +15,13 @@ const dataCities = [
 ];
 
 const schema = yup.object().shape({
-  city: yup.string().required(),
+  locality: yup.string().required(),
   street: yup.string().required(),
   house: yup.string().required(),
-  flat: yup.number().required(),
-  porch: yup.number().required(),
-  floor: yup.number().required(),
-  codeIntercom: yup.number().required(),
+  flat: yup.string(),
+  porch: yup.string(),
+  floor: yup.string(),
+  codeIntercom: yup.string(),
 });
 
 const DeliveryForm = ({ submitForm }) => {
@@ -91,7 +91,6 @@ const DeliveryForm = ({ submitForm }) => {
         </Grid>
       </Grid>
       <div className={ styles.formSubmit }>
-
         <Button className={ 'buttonNext' } type='submit'>
           <span>Далее</span>
         </Button>

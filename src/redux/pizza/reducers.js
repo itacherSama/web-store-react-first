@@ -1,27 +1,19 @@
 import actionTypes from './types';
+import { setLoading, setPizzas } from './utils';
 
 const initialState = {
   items: [],
   isLoading: false,
 };
 
+const handlers = {
+  [actionTypes.SET_PIZZAS]: (state, action) => setPizzas(state, action),
+  [actionTypes.SET_LOADING]: (state, action) => setLoading(state, action),
+};
+
 const pizzaReducer = (state = initialState, action) => {
-  const functionsReducer = {
-    [actionTypes.SET_PIZZAS]: () => ({
-      ...state,
-      items: action.payload.items,
-      isLoading: action.payload.isLoading,
-    }),
-    [actionTypes.SET_LOADING]: () => ({
-      ...state,
-      isLoading: action.payload,
-    }),
-  };
-
-  const checkProperty = functionsReducer.hasOwnProperty(action.type);
-
-  if (checkProperty) {
-    const newState = functionsReducer[action.type]();
+  if (handlers[action.type]) {
+    const newState = handlers[action.type](state, action);
     return newState;
   }
 
