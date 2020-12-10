@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { Input, Select } from '@components/anotherComponents/FormsControls';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '@components/Button';
-
+import { getDeliveryData } from '@redux/delivery/selectors';
 import styles from './DeliveryForm.module.scss';
 
 const dataCities = [
@@ -33,7 +33,7 @@ const DeliveryForm = ({ submitForm }) => {
   });
   const {
     city, street, house, flat, porch, floor, codeIntercom,
-  } = useSelector((state) => state.formReducer);
+  } = useSelector(getDeliveryData);
 
   return (
     <form onSubmit={ handleSubmit(submitForm) }>

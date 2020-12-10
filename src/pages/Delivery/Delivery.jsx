@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setDelivery } from '@redux/form/actions';
+import { setDelivery } from '@redux/delivery/actions';
 import { useHistory } from 'react-router-dom';
 import Modal from '@components/Modal';
 import ContainerDeliveryForm from '@components/DeliveryItems/ContainerDeliveryForm';
@@ -15,6 +15,8 @@ const Delivery = () => {
   const dispatch = useDispatch();
   const [content, setContent] = React.useState(typeContent[0]);
   const history = useHistory();
+
+  React.useEffect(() => () => true);
 
   const [optionModal, setOptionModal] = React.useState({
     open: false,
