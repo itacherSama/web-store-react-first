@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setDelivery } from '@redux/delivery/actions';
 import { useHistory } from 'react-router-dom';
-import Modal from '@components/Modal';
 import ContainerDeliveryForm from '@components/DeliveryItems/ContainerDeliveryForm';
 import СontainerDeliveryMap from '@components/DeliveryItems/СontainerDeliveryMap';
 import { printDataByCoords } from '@utils/utils';
+import ModalConfirm from '@components/ModalConfirm';
 
 import styles from './Delivery.module.scss';
 
@@ -16,10 +16,8 @@ const Delivery = () => {
   const [content, setContent] = React.useState(typeContent[0]);
   const history = useHistory();
 
-  React.useEffect(() => () => true);
-
   const [optionModal, setOptionModal] = React.useState({
-    open: false,
+    open: true,
     children: '',
     title: '',
   });
@@ -42,7 +40,7 @@ const Delivery = () => {
     setData(dataByCoords);
     setOptionModal({
       open: true,
-      children: `${printDataByCoords(dataByCoords)}`,
+      body: `${printDataByCoords(dataByCoords)}`,
       title: 'Адрес',
     });
   };
@@ -71,12 +69,11 @@ const Delivery = () => {
             changeContent={ changeContentDelivery }
             setDataByCoords={ setDataByCoords }
           /> }
-      <Modal
-        onClose={ onCloseModal } onSubmit={ onSubmitModal }
-        open={ optionModal.open } title={ optionModal.title }
-      >
-        {optionModal.children}
-      </Modal>
+      {optionModal.open
+      && <ModalConfirm
+        body={ optionModal.body } closeModal={ onCloseModal }
+        confirmOperation={ onSubmitModal } open={ optionModal.open } title={ optionModal.title }
+         />}
 
     </div>
   );
