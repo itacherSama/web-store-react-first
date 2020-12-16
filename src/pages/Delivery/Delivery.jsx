@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import ContainerDeliveryForm from '@components/DeliveryItems/ContainerDeliveryForm';
 import СontainerDeliveryMap from '@components/DeliveryItems/СontainerDeliveryMap';
 import { printDataByCoords } from '@utils/utils';
-import ModalConfirm from '@components/ModalConfirm';
+import { ModalConfirm } from '@components';
 
 import styles from './Delivery.module.scss';
 
