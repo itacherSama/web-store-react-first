@@ -1,13 +1,32 @@
 import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { setCategory } from '@redux/filter/actions';
+import { categoriesNames } from '@shared/addInfo';
 
 import styles from './Categories.module.scss';
 
-const Categories = React.memo(({ items, onSelectCategory, sortCategory }) => {
-  const onSelectItem = (index) => {
-    onSelectCategory(index);
-  };
+const Categories = React.memo(({ onSetParams, sortCategory, params }) => {
+  const dispatch = useDispatch();
+
+  const onSelectCategory = React.useCallback((index) => {
+    const isNewCategory = sortCategory !== index;
+    if (isNewCategory) {
+      onSetParams('category', index);
+    }
+  }, [sortCategory]);
+
+  React.useEffect(() => {
+    let category;
+    if (params.category) {
+      const checkRes = parseInt(params.category);
+      category = Number.isNaN(checkRes) ? params.category : checkRes;
+    } else {
+      category = 'all';
+    }
+    dispatch(setCategory(category));
+  }, [params.category]);
 
   return (
     <div className={ styles.categories }>
@@ -16,16 +35,16 @@ const Categories = React.memo(({ items, onSelectCategory, sortCategory }) => {
           className={ cn({
             [styles.active]: sortCategory === 'all',
           }) }
-          onClick={ () => onSelectItem('all') }
+          onClick={ () => onSelectCategory('all') }
         >Все</li>
         {
-          items && items.map((name, index) => (
+          categoriesNames && categoriesNames.map((name, index) => (
             <li
               className={ cn({
                 [styles.active]: sortCategory === index,
               }) }
               key={ `${name}_${index}` }
-              onClick={ () => onSelectItem(index) }
+              onClick={ () => onSelectCategory(index) }
             >
               {name}</li>
           ))
@@ -36,11 +55,9 @@ const Categories = React.memo(({ items, onSelectCategory, sortCategory }) => {
 });
 
 Categories.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.string),
-  onSelectCategory: PropTypes.func,
+  onSetParams: PropTypes.func,
   sortCategory: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  params: PropTypes.object,
 };
-
-Categories.displayName = 'Categories';
 
 export default Categories;

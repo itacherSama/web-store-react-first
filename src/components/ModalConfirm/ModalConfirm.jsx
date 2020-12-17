@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '@components/Button';
 import Icon from '@components/Icon';
 import crossSvg from '@assets/img/cross.svg';
+
 import styles from './ModalConfirm.module.scss';
 
 const ModalConfirm = ({

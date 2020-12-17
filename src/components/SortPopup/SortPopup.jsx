@@ -1,23 +1,35 @@
 import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
+import { setSortBy } from '@redux/filter/actions';
+import { sortNames } from '@shared/addInfo';
 import Icon from '@components/Icon';
 import ArrowTopSvg from '@assets/img/arrow-top.svg';
 
 import styles from './SortPopup.module.scss';
 
-const SortPopup = React.memo(({ items, onSelectBySort, sortBy }) => {
+const SortPopup = React.memo(({ onSetParams, sortBy, params }) => {
+  const dispatch = useDispatch();
   const [visiblePopup, setVisiblePopup] = React.useState(false);
   const sortPopupItem = React.useRef();
-  const sortByName = items.find((obj) => obj.type === sortBy.type).name;
+  const sortByName = sortNames.find((obj) => obj.type === sortBy.type).name;
+
+  const onSelectBySort = React.useCallback((index) => {
+    const current = sortNames[index].type;
+    const isNewSort = current !== sortBy.type;
+    if (isNewSort) {
+      onSetParams('sort', current);
+    }
+  }, [sortBy]);
+
+  React.useEffect(() => {
+    if (params.sort) dispatch(setSortBy(params.sort));
+  }, [params.sort]);
 
   const toggleVisiblePopup = () => {
     setVisiblePopup(!visiblePopup);
-  };
-
-  const onSelectItem = (index) => {
-    onSelectBySort(index);
   };
 
   const hideVisiblePopup = (e) => {
@@ -29,8 +41,9 @@ const SortPopup = React.memo(({ items, onSelectBySort, sortBy }) => {
 
   React.useEffect(() => {
     window.addEventListener('click', hideVisiblePopup);
-
-    return window.removeEventListener('click', hideVisiblePopup);
+    return () => {
+      window.removeEventListener('click', hideVisiblePopup);
+    };
   }, []);
 
   return (
@@ -46,15 +59,15 @@ const SortPopup = React.memo(({ items, onSelectBySort, sortBy }) => {
         <span>{sortByName}</span>
       </div>
       {visiblePopup && (
-        <div className={ styles.sortPopup }>
+        <div className={ styles.sortPopup } >
           <ul>
-            {items && items.map((item, index) => (
+            {sortNames && sortNames.map((item, index) => (
               <li
                 className={ cn({
-                  [styles.active]: sortBy.type === items[index].type,
+                  [styles.active]: sortBy.type === sortNames[index].type,
                 }) }
                 key={ `${item.type}_${index}` }
-                onClick={ () => onSelectItem(index) }
+                onClick={ () => onSelectBySort(index) }
               >
                 {item.name}
               </li>
@@ -68,8 +81,8 @@ const SortPopup = React.memo(({ items, onSelectBySort, sortBy }) => {
 });
 
 SortPopup.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object),
-  onSelectBySort: PropTypes.func,
+  onSetParams: PropTypes.func,
+  params: PropTypes.object,
   sortBy: PropTypes.object,
 };
 
