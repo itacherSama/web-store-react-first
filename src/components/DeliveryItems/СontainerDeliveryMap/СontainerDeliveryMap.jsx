@@ -11,7 +11,7 @@ import styles from './ContainerDeliveryMap.module.scss';
 
 const ContainerDeliveryMap = ({ changeContent, setData }) => {
   const [optionModal, setOptionModal] = React.useState({
-    open: false,
+    isOpen: false,
     children: '',
     title: '',
   });
@@ -19,7 +19,7 @@ const ContainerDeliveryMap = ({ changeContent, setData }) => {
   const setDataByCoords = (dataByCoords) => {
     setData(dataByCoords);
     setOptionModal({
-      open: true,
+      isOpen: true,
       body: `${printDataByCoords(dataByCoords)}`,
       title: 'Адрес',
     });
@@ -27,7 +27,7 @@ const ContainerDeliveryMap = ({ changeContent, setData }) => {
 
   const onCloseModal = () => {
     setOptionModal({
-      open: false,
+      isOpen: false,
     });
   };
 
@@ -48,10 +48,10 @@ const ContainerDeliveryMap = ({ changeContent, setData }) => {
         </div>
         <MapYandex setDataByCoords={ setDataByCoords } />
       </div>
-      {optionModal.open
+      {optionModal.isOpen
       && <ModalConfirm
         body={ optionModal.body } closeModal={ onCloseModal }
-        confirmOperation={ onConfirmModal } open={ optionModal.open } title={ optionModal.title }
+        confirmOperation={ onConfirmModal } isOpen={ optionModal.isOpen } title={ optionModal.title }
          />}
     </>
   );

@@ -2,7 +2,9 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { Button, CartItem } from '@components';
+import {
+  Button, CartItem, ModalConfirm, CartEmpty,
+} from '@components';
 import {
   clearCart, incrementItem, decrementItem, deleteItem,
 } from '@redux/cart/actions';
@@ -12,7 +14,6 @@ import { getItemsForSelector, getTotalPrice, getTotalItems } from '@redux/cart/s
 import trashSvg from '@assets/img/trash.svg';
 import cartSvg from '@assets/img/cart.svg';
 import greyArowLeftSvg from '@assets/img/grey-arrow-left.svg';
-import CartEmpty from './CartEmpty';
 
 import styles from './Cart.module.scss';
 
@@ -21,6 +22,18 @@ const Cart = () => {
   const totalPrice = useSelector(getTotalPrice);
   const totalItems = useSelector(getTotalItems);
   const arrayItems = useSelector(getItemsForSelector);
+
+  const [optionModal, setOptionModal] = React.useState({
+    isOpen: false,
+    children: '',
+    title: '',
+  });
+
+  const onCloseModal = () => {
+    setOptionModal({
+      isOpen: false,
+    });
+  };
 
   const onIncrementItem = (item) => {
     dispatch(incrementItem(item));
@@ -36,6 +49,15 @@ const Cart = () => {
 
   const onDeleteItem = (item) => {
     dispatch(deleteItem(item));
+  };
+
+  const checkDeleteItem = (item) => {
+    setOptionModal({
+      isOpen: true,
+      title: `Вы действительно хотите удалить \n ${item.name}`,
+      confirm: (item) => onDeleteItem(item),
+      close: () => onCloseModal(),
+    });
   };
 
   if (!arrayItems.length) {
@@ -65,7 +87,7 @@ const Cart = () => {
                 itemBlock={ itemBlock }
                 key={ `${idx}_${itemBlock}` }
                 onDecrementItem={ onDecrementItem }
-                onDeleteItem={ onDeleteItem }
+                onDeleteItem={ checkDeleteItem }
                 onIncrementItem={ onIncrementItem }
               />
             ))
@@ -92,6 +114,11 @@ const Cart = () => {
           </div>
         </div>
       </div>
+      {optionModal.isOpen
+      && <ModalConfirm
+        closeModal={ optionModal.close }
+        confirmOperation={ optionModal.confirm } isOpen={ optionModal.isOpen } title={ optionModal.title }
+         />}
     </div>
 
   );

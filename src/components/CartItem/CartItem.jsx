@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Button } from '@components';
-import Icon from '@components/Icon';
+import { Button, Icon } from '@components';
 
 import plusSvg from '@assets/img/plus.svg';
 import minusSvg from '@assets/img/minus.svg';

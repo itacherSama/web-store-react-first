@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-import { Button } from '@components';
+import { Button, Icon } from '@components';
 import { availableTypes, availableSizes } from '@shared/addInfo';
 import { getCountItemByIdSelector } from '@redux/cart/selectors';
-import Icon from '@components/Icon';
 import plusSvg from '@assets/img/plus.svg';
 import PizzaBlockSelector from './PizzaBlockSelector';
 

@@ -6,3 +6,5 @@ export { default as CartItem } from './CartItem';
 export { default as PizzaBlock } from './PizzaBlock';
 export { default as MapYandex } from './MapYandex';
 export { default as ModalConfirm } from './ModalConfirm';
+export { default as CartEmpty } from './CartEmpty';
+export { default as Icon } from './Icon';

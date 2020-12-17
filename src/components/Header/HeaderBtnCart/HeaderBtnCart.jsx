@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { Button } from '@components';
-import Icon from '@components/Icon';
+import { Button, Icon } from '@components';
 import cartSvg from '@assets/img/cart.svg';
 
 import styles from './HeaderBtnCart.module.scss';
