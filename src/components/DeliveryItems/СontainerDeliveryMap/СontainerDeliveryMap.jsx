@@ -4,17 +4,14 @@ import Button from '@components/Button';
 import Icon from '@components/Icon';
 import { printDataByCoords } from '@utils/utils';
 import { ModalConfirm } from '@components';
+import { useModal } from '@components/Hooks';
 
 import greyArowLeftSvg from '@assets/img/grey-arrow-left.svg';
 
 import styles from './ContainerDeliveryMap.module.scss';
 
 const ContainerDeliveryMap = ({ changeContent, setData }) => {
-  const [optionModal, setOptionModal] = React.useState({
-    isOpen: false,
-    children: '',
-    title: '',
-  });
+  const [optionModal, setOptionModal, onCloseModal] = useModal();
 
   const setDataByCoords = (dataByCoords) => {
     setData(dataByCoords);
@@ -22,12 +19,6 @@ const ContainerDeliveryMap = ({ changeContent, setData }) => {
       isOpen: true,
       body: `${printDataByCoords(dataByCoords)}`,
       title: 'Адрес',
-    });
-  };
-
-  const onCloseModal = () => {
-    setOptionModal({
-      isOpen: false,
     });
   };
 
@@ -50,8 +41,11 @@ const ContainerDeliveryMap = ({ changeContent, setData }) => {
       </div>
       {optionModal.isOpen
       && <ModalConfirm
-        body={ optionModal.body } closeModal={ onCloseModal }
-        confirmOperation={ onConfirmModal } isOpen={ optionModal.isOpen } title={ optionModal.title }
+        body={ optionModal.body }
+        closeModal={ onCloseModal }
+        confirmOperation={ onConfirmModal }
+        isOpen={ optionModal.isOpen }
+        title={ optionModal.title }
          />}
     </>
   );

@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import {
-  Button, CartItem, ModalConfirm, CartEmpty,
+  Button, CartItem, ModalConfirm, CartEmpty, Icon,
 } from '@components';
 import {
   clearCart, incrementItem, decrementItem, deleteItem,
 } from '@redux/cart/actions';
-import Icon from '@components/Icon';
+import { useModal } from '@components/Hooks';
 import { getItemsForSelector, getTotalPrice, getTotalItems } from '@redux/cart/selectors';
 
 import trashSvg from '@assets/img/trash.svg';
@@ -23,17 +23,7 @@ const Cart = () => {
   const totalItems = useSelector(getTotalItems);
   const arrayItems = useSelector(getItemsForSelector);
 
-  const [optionModal, setOptionModal] = React.useState({
-    isOpen: false,
-    children: '',
-    title: '',
-  });
-
-  const onCloseModal = () => {
-    setOptionModal({
-      isOpen: false,
-    });
-  };
+  const [optionModal, setOptionModal, onCloseModal] = useModal();
 
   const onIncrementItem = (item) => {
     dispatch(incrementItem(item));
@@ -43,20 +33,31 @@ const Cart = () => {
     dispatch(decrementItem(item));
   };
 
-  const handleClearCart = () => {
+  const onClearCart = () => {
     dispatch(clearCart());
+    onCloseModal();
   };
 
   const onDeleteItem = (item) => {
     dispatch(deleteItem(item));
+    onCloseModal();
   };
 
   const checkDeleteItem = (item) => {
     setOptionModal({
       isOpen: true,
-      title: `Вы действительно хотите удалить \n ${item.name}`,
-      confirm: (item) => onDeleteItem(item),
-      close: () => onCloseModal(),
+      title: `Вы действительно хотите удалить элемент ${item.name}`,
+      confirm: () => onDeleteItem(item),
+      close: onCloseModal,
+    });
+  };
+
+  const checkClearCart = () => {
+    setOptionModal({
+      isOpen: true,
+      title: 'Вы действительно хотите очистить корзину?',
+      confirm: onClearCart,
+      close: onCloseModal,
     });
   };
 
@@ -74,7 +75,7 @@ const Cart = () => {
             />
             Корзина
           </h2>
-          <div className={ styles.cartClear } onClick={ handleClearCart }>
+          <div className={ styles.cartClear } onClick={ checkClearCart }>
             <Icon src={ trashSvg } />
 
             <span>Очистить корзину</span>
@@ -117,7 +118,9 @@ const Cart = () => {
       {optionModal.isOpen
       && <ModalConfirm
         closeModal={ optionModal.close }
-        confirmOperation={ optionModal.confirm } isOpen={ optionModal.isOpen } title={ optionModal.title }
+        confirmOperation={ optionModal.confirm }
+        isOpen={ optionModal.isOpen }
+        title={ optionModal.title }
          />}
     </div>
 
