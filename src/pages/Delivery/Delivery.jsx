@@ -4,8 +4,6 @@ import { setDelivery } from '@redux/delivery/actions';
 import { useHistory } from 'react-router-dom';
 import ContainerDeliveryForm from '@components/DeliveryItems/ContainerDeliveryForm';
 import СontainerDeliveryMap from '@components/DeliveryItems/СontainerDeliveryMap';
-import { printDataByCoords } from '@utils/utils';
-import { ModalConfirm } from '@components';
 
 import styles from './Delivery.module.scss';
 
@@ -16,44 +14,18 @@ const Delivery = () => {
   const [content, setContent] = React.useState(typeContent[0]);
   const history = useHistory();
 
-  const [optionModal, setOptionModal] = React.useState({
-    open: true,
-    children: '',
-    title: '',
-  });
-
-  const setData = (valuesOfData) => {
-    dispatch(setDelivery(valuesOfData));
+  const setData = (dataForm) => {
+    dispatch(setDelivery(dataForm));
   };
 
-  const submitForm = (valuesOfData) => {
-    setData(valuesOfData);
+  const submitForm = (dataForm) => {
+    setData(dataForm);
     history.push('/');
   };
 
   const changeContentDelivery = () => {
     const newContent = content === typeContent[0] ? typeContent[1] : typeContent[0];
     setContent(newContent);
-  };
-
-  const setDataByCoords = (dataByCoords) => {
-    setData(dataByCoords);
-    setOptionModal({
-      open: true,
-      body: `${printDataByCoords(dataByCoords)}`,
-      title: 'Адрес',
-    });
-  };
-
-  const onCloseModal = () => {
-    setOptionModal({
-      open: false,
-    });
-  };
-
-  const onSubmitModal = () => {
-    onCloseModal();
-    setContent(typeContent[0]);
   };
 
   return (
@@ -67,13 +39,9 @@ const Delivery = () => {
           />
         : <СontainerDeliveryMap
             changeContent={ changeContentDelivery }
-            setDataByCoords={ setDataByCoords }
-          /> }
-      {optionModal.open
-      && <ModalConfirm
-        body={ optionModal.body } closeModal={ onCloseModal }
-        confirmOperation={ onSubmitModal } open={ optionModal.open } title={ optionModal.title }
-         />}
+            setData={ setData }
+          />
+      }
 
     </div>
   );
